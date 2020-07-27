@@ -86,10 +86,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h5 id="sql注入-–jarvisoj-LOGIN"><a href="#sql注入-–jarvisoj-LOGIN" class="headerlink" title="***sql注入 –jarvisoj-LOGIN"></a>***sql注入 –jarvisoj-LOGIN</h5><p>1 and 1=1#, 1 and 1=2#, 1’ and 1=1#, 1’ and 1=2# 前面没错后面报错错，找到注入点。</p>
+        <h5 id="sql注入-–jarvisoj-LOGIN"><a href="#sql注入-–jarvisoj-LOGIN" class="headerlink" title="***sql注入 –jarvisoj-LOGIN"></a>***sql注入 <u>–jarvisoj-LOGIN</u></h5><p>1 and 1=1#, 1 and 1=2#, 1’ and 1=1#, 1’ and 1=2# 前面没错后面报错错，找到注入点。</p>
 <p>Hint: “select * from <code>admin</code> where password=’”.md5($pass,true).”‘“</p>
 <p>利用1’ or ‘1’=’1’思路将引号里面的内容加密后输出为XorXXXX使其恒成立</p>
-<h5 id="burp抓包，改请求头—（在修改post值时hackbar更方便）"><a href="#burp抓包，改请求头—（在修改post值时hackbar更方便）" class="headerlink" title="***burp抓包，改请求头—（在修改post值时hackbar更方便）"></a>***burp抓包，改请求头—（在修改post值时hackbar更方便）</h5><p>修改或添加HTTP请求头 –xctf-xff_referer&amp;robots…&amp;jarvisoj-LOCALHOST&amp;port51…</p>
+<h5 id="burp抓包，改请求头—（在修改post值时hackbar更方便）"><a href="#burp抓包，改请求头—（在修改post值时hackbar更方便）" class="headerlink" title="***burp抓包，改请求头—（在修改post值时hackbar更方便）"></a>***burp抓包，改请求头—（在修改post值时hackbar更方便）</h5><p>修改或添加HTTP请求头 <u>–xctf-xff_referer&amp;robots…&amp;jarvisoj-LOCALHOST&amp;port51…</u></p>
 <p>Referer：来源伪造；X-Forwarded-For: 127.0.0.1 ip伪造；Cookie：身份识别，登录状态伪造；</p>
 <p>curl指令详解<a href="https://www.cnblogs.com/zhanglianghhh/p/11326428.html（admin下可以控制端口）" target="_blank" rel="noopener">https://www.cnblogs.com/zhanglianghhh/p/11326428.html（admin下可以控制端口）</a></p>
 <p>cookie会存有有用的信息</p>
@@ -97,10 +97,10 @@
 <p>2、备份文件泄露：php.bak、<a href="http://www.zip、" target="_blank" rel="noopener">www.zip、</a></p>
 <p>3、git源码泄露：/.git/config</p>
 <p>4、robots协议：/robots.txt可能会隐藏信息</p>
-<h5 id="web最简单的shell-–xctf-webshell"><a href="#web最简单的shell-–xctf-webshell" class="headerlink" title="***web最简单的shell –xctf-webshell"></a>***web最简单的shell –xctf-webshell</h5><p>XXX = system(“find / -name ‘flag*’”);</p>
+<h5 id="web最简单的shell-–xctf-webshell"><a href="#web最简单的shell-–xctf-webshell" class="headerlink" title="***web最简单的shell –xctf-webshell"></a>***web最简单的shell <u>–xctf-webshell</u></h5><p>XXX = system(“find / -name ‘flag*’”);</p>
 <p>XXX = system(“cat ***”);</p>
 <p>或者蚁剑直接连</p>
-<h5 id="php序列化与反序列化-–xctf-Web-php-unserialize-amp-unserialize3"><a href="#php序列化与反序列化-–xctf-Web-php-unserialize-amp-unserialize3" class="headerlink" title="***php序列化与反序列化 –xctf-Web_php_unserialize&amp;unserialize3"></a>***php序列化与反序列化 –xctf-Web_php_unserialize&amp;unserialize3</h5><p>序列化就是把本来不能直接存储的数据转换成可存储的数据，并且不会丢掉数据格式</p>
+<h5 id="php序列化与反序列化-–xctf-Web-php-unserialize-amp-unserialize3"><a href="#php序列化与反序列化-–xctf-Web-php-unserialize-amp-unserialize3" class="headerlink" title="***php序列化与反序列化 –xctf-Web_php_unserialize&amp;unserialize3"></a>***php序列化与反序列化 <u>–xctf-Web_php_unserialize&amp;unserialize3</u></h5><p>序列化就是把本来不能直接存储的数据转换成可存储的数据，并且不会丢掉数据格式</p>
 <p>如：O:6:”Shield”:1:{s:4:”file”;s:8:”pctf.php”;}  O/A序列化对象/数组，6类名占字符 …字符串 属性值长度 属性值</p>
 <p>反序列化就是把序列化的数据，转换成我们需要的格式</p>
 <p>常见基础考点：绕过_wakeup()函数</p>
@@ -113,7 +113,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/20/ctf-web1/" data-id="ckd3zi0z900018svb6gec0quz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/20/ctf-web1/" data-id="ckd406qc90001akvb2tm6gsz4" class="article-share-link">Share</a>
       
       
     </footer>
@@ -162,7 +162,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/20/hello-world/" data-id="ckd3zi0zh00028svb7u4k6ckd" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/20/hello-world/" data-id="ckd406qch0002akvbagcxaid8" class="article-share-link">Share</a>
       
       
     </footer>
