@@ -136,8 +136,7 @@
 <p>file_get_contents($b) 说明变量b应该是一个文件，在服务器上添加1.txt，构造变量b，使其满足条件</p>
 <p><a href="http://123.206.31.85:10001/?a=9&amp;b=http://129.211.106.169/1.txt，得到flag" target="_blank" rel="noopener">http://123.206.31.85:10001/?a=9&amp;b=http://129.211.106.169/1.txt，得到flag</a></p>
 <p>同样可以使用伪协议<a href="http://123.206.31.85:10001/?a=9&amp;b=php://input" target="_blank" rel="noopener">http://123.206.31.85:10001/?a=9&amp;b=php://input</a> ,post data 9,同样得到flag</p>
-<p>三、</p>
-<div style="width:50%;margin:auto"><img src="/2020/09/23/ctf-web6/2.png" class></div>
+<h3 id="三、web2"><a href="#三、web2" class="headerlink" title="三、web2"></a>三、web2</h3><div style="width:50%;margin:auto"><img src="/2020/09/23/ctf-web6/2.png" class></div>
 
 <p>分析应该写一个python脚本</p>
 <p>找到运算的位置</p>
@@ -146,6 +145,18 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!coding:utf-8</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">url = <span class="string">'http://123.206.31.85:10002/'</span></span><br><span class="line">s = requests.Session()</span><br><span class="line">r = s.get(url)</span><br><span class="line">res = r.content</span><br><span class="line">str1 = <span class="string">"&lt;br/&gt;"</span></span><br><span class="line">a = res.find(str1)</span><br><span class="line">b = res.find(<span class="string">"&lt;/p&gt;\n&lt;f"</span>)</span><br><span class="line">num=res[a+<span class="number">6</span>:b]</span><br><span class="line">r=s.post(url,data=&#123;<span class="string">'result'</span>:eval(num)&#125;)</span><br><span class="line">print(num)</span><br><span class="line"><span class="comment">#print(res)</span></span><br><span class="line">print(r.content)</span><br></pre></td></tr></table></figure>
 
 <p>得到flag,</p><p>flag{b37d6bdd7bb132c7c7f6072cd318697c}</p><p></p>
+<h3 id="四、web13"><a href="#四、web13" class="headerlink" title="四、web13"></a>四、web13</h3><div style="width:70%;margin:auto"><img src="/2020/09/23/ctf-web6/5.png" class></div>
+
+<p>​    发现怎么输入都是wrong，没有sql注入点，于是用burp转包发现有password</p>
+<div style="width:70%;margin:auto"><img src="/2020/09/23/ctf-web6/4.png" class></div>
+
+<p>​    base64解密正好是flag但是不对，flag{a290df028e5279b0b749a285d3afc3b7}，将flag内容输入发现提示</p>
+<div style="width:70%;margin:auto"><img src="/2020/09/23/ctf-web6/6.png" class></div>
+
+<p>​    多次尝试，发现时间变化但一直需要faster，于是感觉需要写一个python代码来执行</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import re</span><br><span class="line">import base64</span><br><span class="line"></span><br><span class="line">url = <span class="string">'http://123.206.31.85:10013/index.php'</span></span><br><span class="line"></span><br><span class="line">s = requests.Session()</span><br><span class="line">r = s.post(url,data=&#123;<span class="string">'password'</span>: <span class="string">'111111'</span>&#125;)</span><br><span class="line"><span class="keyword">print</span>(r.headers)</span><br><span class="line">pwd = r.headers[<span class="string">'password'</span>]</span><br><span class="line"><span class="keyword">print</span>(pwd)</span><br><span class="line">_pwd = base64.b64decode(pwd)</span><br><span class="line"><span class="keyword">print</span>(_pwd)</span><br><span class="line">_pwd_ = _pwd[<span class="number">5</span>:len(_pwd)<span class="number">-1</span>]</span><br><span class="line"><span class="keyword">print</span>(_pwd_)</span><br><span class="line">r = s.post(url,data=&#123;<span class="string">'password'</span>: _pwd_&#125;)</span><br><span class="line"><span class="keyword">print</span>(r.text)</span><br></pre></td></tr></table></figure>
+
+<p>拿到真正flag flag{FjXAkdGnOBoIUZaFzHqjInY2VndLSg}</p>
 
       
     </div>
