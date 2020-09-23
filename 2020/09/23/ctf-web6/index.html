@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>ctf-web6 newbugku | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一、web26正则表达式：    字符 含义    \d 任意一个十进制数字[0-9]   \D 任意一个非十进制数字   \s 任意一个空白字符(空格、换行符、换页符、回车符、字表符)   \S 任意一个非空白字符   \w 任意一个单词字符   \W 任意个非单词字符   正则表达式修正符： i(不区分大小写)、g(全局匹配)、m(多行匹配)、s(特殊字符圆点 . 中包含换行符)、U(只匹配最">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ctf-web6 newbugku">
+<meta property="og:url" content="https://zmh2000829.github.io/2020/09/23/ctf-web6/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一、web26正则表达式：    字符 含义    \d 任意一个十进制数字[0-9]   \D 任意一个非十进制数字   \s 任意一个空白字符(空格、换行符、换页符、回车符、字表符)   \S 任意一个非空白字符   \w 任意一个单词字符   \W 任意个非单词字符   正则表达式修正符： i(不区分大小写)、g(全局匹配)、m(多行匹配)、s(特殊字符圆点 . 中包含换行符)、U(只匹配最">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://zmh2000829.github.io/2020/09/23/ctf-web6/2.png">
+<meta property="og:image" content="https://zmh2000829.github.io/2020/09/23/ctf-web6/3.png">
+<meta property="article:published_time" content="2020-09-23T02:26:08.000Z">
+<meta property="article:modified_time" content="2020-09-23T09:19:00.319Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zmh2000829.github.io/2020/09/23/ctf-web6/2.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://zmh2000829.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-ctf-web6" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/23/ctf-web6/" class="article-date">
+  <time datetime="2020-09-23T02:26:08.000Z" itemprop="datePublished">2020-09-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ctf-web6 newbugku
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="一、web26"><a href="#一、web26" class="headerlink" title="一、web26"></a>一、web26</h3><p>正则表达式：</p>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\d</td>
+<td>任意一个十进制数字[0-9]</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>任意一个非十进制数字</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>任意一个空白字符(空格、换行符、换页符、回车符、字表符)</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>任意一个非空白字符</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>任意一个单词字符</td>
+</tr>
+<tr>
+<td>\W</td>
+<td>任意个非单词字符</td>
+</tr>
+</tbody></table>
+<p>正则表达式修正符：</p>
+<p>i(不区分大小写)、g(全局匹配)、m(多行匹配)、s(特殊字符圆点 . 中包含换行符)、U(只匹配最近的一个字符串;不重复匹配)、x(将模式中的空白忽略)、a(强制从目标字符串开头匹配)、D(如果使用$限制结尾字符,则不允许结尾有换行)、e(配合函数preg_replace()使用, 可以把匹配来的字符串当作正则表达式执行)</p>
+<p>如：^\d+(.\d+)?$  </p>
+<p>^b表示行开头；\d表示数字；+表示出现至少1次；.表示任意字符(除换行和回车之外)；？表示出现0或1次；(.\d+)?表示括号里内出现0或1次；$表示行结尾</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$num=$_GET[<span class="string">'num'</span>];</span><br><span class="line">$str=$_GET[<span class="string">'str'</span>];</span><br><span class="line">show_source(<span class="keyword">__FILE__</span>);</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($num)&amp;&amp;<span class="keyword">isset</span>($str)) &#123;                             </span><br><span class="line">  <span class="keyword">if</span> (preg_match(<span class="string">'/\d+/sD'</span>,$str)) &#123;           正则匹配，str不能出现数字</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"vagetable hhhh"</span>;</span><br><span class="line">    <span class="keyword">exit</span>();</span><br><span class="line">  &#125;</span><br><span class="line">  $result=is_numeric($num) <span class="keyword">and</span> is_numeric($str);</span><br><span class="line">  <span class="keyword">if</span> ($result) &#123;                              当num为数字，result即为<span class="keyword">true</span></span><br><span class="line">    <span class="keyword">include</span> <span class="string">"flag.php"</span>;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"$flag"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"vagetablessssss"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span>              <span class="comment">//and与&amp;&amp;的区别</span></span><br><span class="line">$bool = <span class="keyword">true</span> &amp;&amp; <span class="keyword">false</span>;</span><br><span class="line">var_dump($bool); <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line">$bool = <span class="keyword">true</span> <span class="keyword">and</span> <span class="keyword">false</span>;</span><br><span class="line">var_dump($bool); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="二、web1"><a href="#二、web1" class="headerlink" title="二、web1"></a>二、web1</h3><p>trim() 函数移除字符串两侧的空白字符或其他预定义字符。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">header(<span class="string">"Content-type:text/html;charset=utf-8"</span>);</span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">include</span> <span class="string">'flag.php'</span>;</span><br><span class="line">$b=<span class="string">'ssAEDsssss'</span>;</span><br><span class="line">extract($_GET);    </span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($a))&#123;</span><br><span class="line">    $c=trim(file_get_contents($b));</span><br><span class="line">    <span class="keyword">if</span>($a==$c)&#123;</span><br><span class="line">        <span class="keyword">echo</span> $myFlag;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'继续努力'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>extract($_GET) 相当于 $a = $__GET[‘a’], 可以通过get方式对变量b进行重新赋值</p>
+<p>file_get_contents($b) 说明变量b应该是一个文件，在服务器上添加1.txt，构造变量b，使其满足条件</p>
+<p><a href="http://123.206.31.85:10001/?a=9&amp;b=http://129.211.106.169/1.txt，得到flag" target="_blank" rel="noopener">http://123.206.31.85:10001/?a=9&amp;b=http://129.211.106.169/1.txt，得到flag</a></p>
+<p>同样可以使用伪协议<a href="http://123.206.31.85:10001/?a=9&amp;b=php://input" target="_blank" rel="noopener">http://123.206.31.85:10001/?a=9&amp;b=php://input</a> ,post data 9,同样得到flag</p>
+<p>三、</p>
+<div style="width:50%;margin:auto"><img src="/2020/09/23/ctf-web6/2.png" class></div>
+
+<p>分析应该写一个python脚本</p>
+<p>找到运算的位置</p>
+<div style="width:50%;margin:auto"><img src="/2020/09/23/ctf-web6/3.png" class></div>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!coding:utf-8</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">url = <span class="string">'http://123.206.31.85:10002/'</span></span><br><span class="line">s = requests.Session()</span><br><span class="line">r = s.get(url)</span><br><span class="line">res = r.content</span><br><span class="line">str1 = <span class="string">"&lt;br/&gt;"</span></span><br><span class="line">a = res.find(str1)</span><br><span class="line">b = res.find(<span class="string">"&lt;/p&gt;\n&lt;f"</span>)</span><br><span class="line">num=res[a+<span class="number">6</span>:b]</span><br><span class="line">r=s.post(url,data=&#123;<span class="string">'result'</span>:eval(num)&#125;)</span><br><span class="line">print(num)</span><br><span class="line"><span class="comment">#print(res)</span></span><br><span class="line">print(r.content)</span><br></pre></td></tr></table></figure>
+
+<p>得到flag,</p><p>flag{b37d6bdd7bb132c7c7f6072cd318697c}</p><p></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zmh2000829.github.io/2020/09/23/ctf-web6/" data-id="ckff6cto0000024vb0771g9tw" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/08/26/ctf-web5/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">ctf-web5</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/09/23/ctf-web6/">ctf-web6 newbugku</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/26/ctf-web5/">ctf-web5</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/26/ctf-web4/">ctf-web4</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/05/ctf-web3/">ctf-web3</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/01/ctf-web2/">ctf-web2(原创)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
