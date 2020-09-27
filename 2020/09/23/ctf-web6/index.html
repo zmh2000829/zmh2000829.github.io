@@ -5,11 +5,11 @@
   
 
   
-  <title>ctf-web6 newbugku | Hexo</title>
+  <title>ctf-web newbugku专题持续更新 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="一、web26正则表达式：    字符 含义    \d 任意一个十进制数字[0-9]   \D 任意一个非十进制数字   \s 任意一个空白字符(空格、换行符、换页符、回车符、字表符)   \S 任意一个非空白字符   \w 任意一个单词字符   \W 任意个非单词字符   正则表达式修正符： i(不区分大小写)、g(全局匹配)、m(多行匹配)、s(特殊字符圆点 . 中包含换行符)、U(只匹配最">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ctf-web6 newbugku">
+<meta property="og:title" content="ctf-web newbugku专题持续更新">
 <meta property="og:url" content="https://zmh2000829.github.io/2020/09/23/ctf-web6/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="一、web26正则表达式：    字符 含义    \d 任意一个十进制数字[0-9]   \D 任意一个非十进制数字   \s 任意一个空白字符(空格、换行符、换页符、回车符、字表符)   \S 任意一个非空白字符   \w 任意一个单词字符   \W 任意个非单词字符   正则表达式修正符： i(不区分大小写)、g(全局匹配)、m(多行匹配)、s(特殊字符圆点 . 中包含换行符)、U(只匹配最">
@@ -19,8 +19,13 @@
 <meta property="og:image" content="https://zmh2000829.github.io/2020/09/23/ctf-web6/5.png">
 <meta property="og:image" content="https://zmh2000829.github.io/2020/09/23/ctf-web6/4.png">
 <meta property="og:image" content="https://zmh2000829.github.io/2020/09/23/ctf-web6/6.png">
+<meta property="og:image" content="https://zmh2000829.github.io/2020/09/23/ctf-web6/7.png">
+<meta property="og:image" content="https://zmh2000829.github.io/2020/09/23/ctf-web6/8.png">
+<meta property="og:image" content="https://zmh2000829.github.io/2020/09/23/ctf-web6/9.png">
+<meta property="og:image" content="https://zmh2000829.github.io/2020/09/23/ctf-web6/10.png">
+<meta property="og:image" content="https://zmh2000829.github.io/2020/09/23/ctf-web6/11.png">
 <meta property="article:published_time" content="2020-09-23T02:26:08.000Z">
-<meta property="article:modified_time" content="2020-09-23T14:20:00.842Z">
+<meta property="article:modified_time" content="2020-09-27T06:15:28.192Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://zmh2000829.github.io/2020/09/23/ctf-web6/2.png">
@@ -86,7 +91,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      ctf-web6 newbugku
+      ctf-web newbugku专题持续更新
     </h1>
   
 
@@ -165,6 +170,22 @@
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import re</span><br><span class="line">import base64</span><br><span class="line"></span><br><span class="line">url = <span class="string">'http://123.206.31.85:10013/index.php'</span></span><br><span class="line"></span><br><span class="line">s = requests.Session()</span><br><span class="line">r = s.post(url,data=&#123;<span class="string">'password'</span>: <span class="string">'111111'</span>&#125;)</span><br><span class="line"><span class="keyword">print</span>(r.headers)</span><br><span class="line">pwd = r.headers[<span class="string">'password'</span>]</span><br><span class="line"><span class="keyword">print</span>(pwd)</span><br><span class="line">_pwd = base64.b64decode(pwd)</span><br><span class="line"><span class="keyword">print</span>(_pwd)</span><br><span class="line">_pwd_ = _pwd[<span class="number">5</span>:len(_pwd)<span class="number">-1</span>]</span><br><span class="line"><span class="keyword">print</span>(_pwd_)</span><br><span class="line">r = s.post(url,data=&#123;<span class="string">'password'</span>: _pwd_&#125;)</span><br><span class="line"><span class="keyword">print</span>(r.text)</span><br></pre></td></tr></table></figure>
 
 <p>拿到真正flag flag{FjXAkdGnOBoIUZaFzHqjInY2VndLSg}</p>
+<h3 id="五、web23"><a href="#五、web23" class="headerlink" title="五、web23"></a>五、web23</h3><p>打开网站，用御剑扫一下</p>
+<div style="width:70%;margin:auto"><img src="/2020/09/23/ctf-web6/7.png" class></div>
+
+<p>readme.txt中告诉了用户名是admin，密码是三位数</p>
+<div style="width:70%;margin:auto"><img src="/2020/09/23/ctf-web6/8.png" class></div>
+
+<p>其中1.png写出部分验证码是根据设置的SESSION，并是SESSION中的code与验证码图片里的数字比较</p>
+<div style="width:70%;margin:auto"><img src="/2020/09/23/ctf-web6/9.png" class></div>
+
+<p>那么就可以抓包将PHPSESSION中的值改为空，并同时将验证码&amp;verifycode值改为空，intruder暴力破</p>
+<div style="width:70%;margin:auto"><img src="/2020/09/23/ctf-web6/10.png" class></div>
+
+<div style="width:70%;margin:auto"><img src="/2020/09/23/ctf-web6/11.png" class></div>
+
+<p>得到flag</p>
+<p>六、 web</p>
 
       
     </div>
@@ -177,6 +198,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2020/09/27/ctf-web7/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          ctf-web7
+        
+      </div>
+    </a>
   
   
     <a href="/2020/08/26/ctf-web5/" id="article-nav-older" class="article-nav-link-wrap">
@@ -218,7 +248,11 @@
       <ul>
         
           <li>
-            <a href="/2020/09/23/ctf-web6/">ctf-web6 newbugku</a>
+            <a href="/2020/09/27/ctf-web7/">ctf-web7</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/23/ctf-web6/">ctf-web newbugku专题持续更新</a>
           </li>
         
           <li>
@@ -231,10 +265,6 @@
         
           <li>
             <a href="/2020/08/05/ctf-web3/">ctf-web3</a>
-          </li>
-        
-          <li>
-            <a href="/2020/08/01/ctf-web2/">ctf-web2(原创)</a>
           </li>
         
       </ul>
