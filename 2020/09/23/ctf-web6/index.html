@@ -24,8 +24,9 @@
 <meta property="og:image" content="https://zmh2000829.github.io/2020/09/23/ctf-web6/9.png">
 <meta property="og:image" content="https://zmh2000829.github.io/2020/09/23/ctf-web6/10.png">
 <meta property="og:image" content="https://zmh2000829.github.io/2020/09/23/ctf-web6/11.png">
+<meta property="og:image" content="https://zmh2000829.github.io/2020/09/23/ctf-web6/12.png">
 <meta property="article:published_time" content="2020-09-23T02:26:08.000Z">
-<meta property="article:modified_time" content="2020-09-27T11:05:19.627Z">
+<meta property="article:modified_time" content="2020-10-17T13:53:49.342Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://zmh2000829.github.io/2020/09/23/ctf-web6/2.png">
@@ -185,7 +186,15 @@
 <div style="width:70%;margin:auto"><img src="/2020/09/23/ctf-web6/11.png" class></div>
 
 <p>得到flag</p>
-<h3 id="六、-web"><a href="#六、-web" class="headerlink" title="六、 web"></a>六、 web</h3>
+<h3 id="六、-web20"><a href="#六、-web20" class="headerlink" title="六、 web20"></a>六、 web20</h3><p>打开网站，内容如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">你的动态密文是：6aa39e2812f69af12cf9984630777eb29</span><br><span class="line">GET提交对应的密文可以得到flag(form_input_name&#x3D;&#39;key&#39;)</span><br><span class="line">输出格式：&#39;flag&#123;....&#125;&#39;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding=utf-8</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"> </span><br><span class="line">reload(sys)</span><br><span class="line">sys.setdefaultencoding(<span class="string">'utf-8'</span>) <span class="comment">#这三行是因为转换成字符串输出的时候出现了UnicodeEncodeError: 'ascii' codec can't encode characters in position ***问题，使用的是ulipad编译器。</span></span><br><span class="line">url = <span class="string">'http://123.206.31.85:10020/'</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">30</span>): <span class="comment">#多找几次</span></span><br><span class="line">	s = requests.Session()</span><br><span class="line">	r = s.get(url)</span><br><span class="line">	res = r.content</span><br><span class="line">	str1 = <span class="string">"GET"</span></span><br><span class="line">	a = res.find(str1)</span><br><span class="line">	num=res[a<span class="number">-38</span>:a<span class="number">-5</span>]</span><br><span class="line">	print(num) <span class="comment">#找到字符密码位置</span></span><br><span class="line">	url2 = url + <span class="string">"?key="</span>+num</span><br><span class="line">	print(url2)</span><br><span class="line">	h = s.get(url2).text</span><br><span class="line">	f = open(<span class="string">'out.html'</span>, <span class="string">'a'</span>) <span class="comment">#因为网页及python的编码都是utf-8，在写入文件时Windows默认转码成gbk，遇到某些gbk不支持的字符就会报错。</span></span><br><span class="line">	f.write(h)</span><br></pre></td></tr></table></figure>
+
+<div style="width:70%;margin:auto"><img src="/2020/09/23/ctf-web6/12.png" class></div>
+
+<p>拿到flag</p>
+
       
     </div>
     <footer class="article-footer">
@@ -234,7 +243,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li></ul>
     </div>
   </div>
 
@@ -247,6 +256,14 @@
       <ul>
         
           <li>
+            <a href="/2020/10/17/ctf-web9/">ctf-web9</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/04/ctf-web8/">XXE漏洞介绍</a>
+          </li>
+        
+          <li>
             <a href="/2020/09/27/ctf-web7/">sqli-labs专题持续更新</a>
           </li>
         
@@ -256,14 +273,6 @@
         
           <li>
             <a href="/2020/08/26/ctf-web5/">ctf-web5</a>
-          </li>
-        
-          <li>
-            <a href="/2020/08/26/ctf-web4/">ctf-web4</a>
-          </li>
-        
-          <li>
-            <a href="/2020/08/05/ctf-web3/">ctf-web3</a>
           </li>
         
       </ul>
